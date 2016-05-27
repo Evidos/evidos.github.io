@@ -17,7 +17,7 @@ status:
     Message: Failed
 activity:
   - Number: 101
-    Message: Infitation sent
+    Message: Invitation sent
   - Number: 102
     Message: Received
   - Number: 103
