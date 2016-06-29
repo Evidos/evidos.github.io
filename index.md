@@ -1,7 +1,5 @@
 ---
-layout: page
-title: Basic Information
-permalink: /basic-information/
+layout: frontpage
 ---
 
 The Signhost API is RESTful and HTTP-based. Basically, this means that the communication is made through normal HTTP requests.
