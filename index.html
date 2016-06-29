@@ -153,7 +153,11 @@ layout: default
             {% endif %}
             {% endif %}
           </td>
-          <td>{{ innerobjectproperty.description }}</td>
+          <td>{{ innerobjectproperty.description }}
+            {% if innerobjectproperty.format != null %}
+            <em>Format: {{ innerobjectproperty.format }}</em>
+            {% endif %}
+          </td>
         </tr>
 
       {% endfor %}
