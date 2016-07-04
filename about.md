@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+menu_title: About
 permalink: /about/
 ---
 [Signhost.com](http://www.signhost.com) is a service that makes it possible to digitally sign, seal or deliver your documents. Documents can be signed directly from your webportal or by sending a signing request by email or other message to the end-user.
