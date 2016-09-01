@@ -1,0 +1,204 @@
+schema:
+  type: object
+  properties:
+    Id:
+      type: string
+      description: Id of the transaction
+    Status:
+      type: int
+      description: Status of the transaction. See <a href="/status-activity/">Statuses & Activities</a>
+    Seal:
+      type: boolean
+      description: Seal the document before sending to the signers.
+    Signers:
+      type: array
+      description: The signer information, max 4 signers.
+      items:
+        type: object
+        properties:
+          Id:
+            type: string
+            description: The Id of the signer
+          Expires:
+            type: datetime
+            description: When set the signer is no longer allowed to sign the transaction after this date.
+          Email:
+            type: string
+            description: The e-mail address of the signer
+            example: john.doe@example.com
+          Mobile:
+            type: string
+            description: The mobile phone number of the signer
+            example: "+31123456789"
+          Iban:
+            type: string
+            description: The IBAN of the signer
+            example: NL13TEST0123456789
+          BSN:
+            type: string
+            description: The BSN of the signer
+            example: 900078479
+          RequireScribbleName:
+            type: boolean
+            description: Require that the signer has to fill in a name.
+          RequireScribble:
+            type: boolean
+            description: Require that the signer has to draw a scribble.
+          RequireEmailVerification:
+            type: boolean
+            description: Require that the signer has to verify by email.
+          RequireSmsVerification:
+            type: boolean
+            description: Require that the signer has to verify by sms.
+          RequireIdealVerification:
+            type: boolean
+            description: Require that the signer has to verify by iDeal.
+          RequireDigiDVerification:
+            type: boolean
+            description: Require that the signer has to verify by DigiD.
+          RequireKennisnetVerification:
+            type: boolean
+            description: Require that the signer has to verify by Kennisnet.
+          RequireSurfnetVerification:
+            type: boolean
+            description: Require that the signer has to verify by Surfnet.
+          SendSignRequest:
+            type: boolean
+            description: Send a sign invitation to the signer his e-mail address.
+          SendSignConfirmation:
+            type: boolean
+            description: Send the sign confirmation to the signer his e-mail address.
+          SignRequestMessage:
+            type: string
+            description: The message of the sign request in plain text (no HTML).
+          DaysToRemind:
+            type: integer
+            description: Amount of days before reminding the signers. -1 to disable reminders.
+          Language:
+            type: string
+            description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+          ScribbleName:
+            type: string
+            description: The name of the signer, this will be pre filled in the scribble form.
+          ScribbleNameFixed:
+            type: boolean
+            description: The switch to allow or disallow the signer to modify the ScribbleName in the scribble form.
+          Reference:
+            type: string
+            description: The reference of the signer.
+          ReturnUrl:
+            type: string
+            description: The url to redirect the user to after signing, rejecting or cancelling.
+          Activities:
+            type: array
+            description: Array with the signer activities
+            items:
+              Id:
+                type: string
+                description: Id of the activity
+              Code:
+                type: int
+                description: The activity code
+              Activity:
+                type: string
+                description: Explanation of the activity code
+              CreatedDateTime:
+                type: datetime
+                description: Datetime of creation
+          RejectReason:
+            type: string
+            description: Reason of rejection if rejected
+          SignUrl:
+            type: string
+            description: Sign url for the signer
+          SignedDateTime:
+            type: datetime
+            description: Datetime of signing
+          RejectDateTime:
+            type: datetime
+            description: Datetime of rejecting
+          CreatedDateTime:
+            type: datetime
+            description: Datetime of creation
+          ModifiedDateTime:
+            type: datetime
+            description: Datetime of last modification
+          Context:
+            type: object
+            description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
+    Receivers:
+      type: array
+      description: The receivers information
+      items:
+        type: object
+        properties:
+          Id:
+            type: string
+            description: Id of the receiver
+          Name:
+            type: string
+            description: The name of the receiver.
+          Email:
+            type: string
+            description: The e-mail address of the receiver.
+          Language:
+            type: string
+            description: The language of the receiver, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
+          Message:
+            type: string
+            description: The email message towards the receiver. Plain text (no HTML).
+          Reference:
+            type: string
+            description: The reference of the receiver.
+          Activities:
+            type: array
+            description: Array with the receiver activities
+            items:
+              Id:
+                type: string
+                description: Id of the activity
+              Code:
+                type: int
+                description: The activity code
+              Activity:
+                type: string
+                description: Explanation of the activity code
+              CreatedDateTime:
+                type: datetime
+                description: Datetime of creation
+          CreatedDateTime:
+            type: datetime
+            description: Datetime of creation
+          ModifiedDateTime:
+            type: datetime
+            description: Datetime of last modification
+          Context:
+            type: object
+            description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
+    Reference:
+      type: string
+      description: The reference of the transaction. For example "1234"
+    PostbackUrl:
+      type: string
+      description: The absolute url to postback the status updates. For example https://example.com/postback.php
+    SignRequestMode:
+      type: int
+      description: Set to 1 for sending at once, to 2 for sequential.
+    DaysToExpire:
+      type: int
+      description: Amount of days before expiration. Max 90 days.
+    SendEmailNotifications:
+      type: boolean
+      description: Send e-mail notifications to the sender.
+    CreatedDateTime:
+      type: datetime
+      description: Datetime of creation
+    CanceledDateTime:
+      type: datetime
+      description: Datetime of cancellation
+    ModifiedDateTime:
+      type: datetime
+      description: Datetime of last modification
+    Context:
+      type: object
+      description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
