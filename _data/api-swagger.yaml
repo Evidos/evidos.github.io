@@ -170,7 +170,7 @@ paths:
                     Email:
                       type: string
                       required: true
-                      description: The e-mail address of the reveiver.
+                      description: The e-mail address of the receiver.
                     Language:
                       type: string
                       required: false
