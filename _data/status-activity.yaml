@@ -30,6 +30,8 @@ activity:
     Message: Rejected
   - Number: 203
     Message: Signed
+  - Number: 290
+    Message: Redirected to return url
   - Number: 301
     Message: Signed document sent
   - Number: 302
