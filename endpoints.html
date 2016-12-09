@@ -22,7 +22,7 @@ permalink: /endpoints/
     </ul>
   <br>
   <!-- End list of al endpoints-->
-  
+
   {% for path in site.data.api-swagger.paths %}
     {% for m in path[1] %}
       {% assign method_name = m[0] %}
@@ -34,7 +34,7 @@ permalink: /endpoints/
       <p>{{ method.description }}</p>
 
       <!-- Begin Parameter section -->
-      {% if method.parameters | first %}
+      {% if method.parameters and first %}
 
         <h3>Parameters</h3>
         <table>
@@ -63,7 +63,7 @@ permalink: /endpoints/
 
       <!-- Begin Request body section -->
       {% for p in method.parameters %}
-      {% if p.schema != null | first %}
+      {% if p.schema != null and first %}
         <h3>Request Body</h3>
         <table>
         <thead>
@@ -179,7 +179,7 @@ permalink: /endpoints/
       <!-- End Request body section -->
 
       <!-- Begin Response section -->
-      {% if method.responses | first %}
+      {% if method.responses and first %}
         <h3>Most common responses</h3>
         <table>
           <tbody>
@@ -209,7 +209,7 @@ permalink: /endpoints/
                 <pre>{{ example.curl_request }}</pre>
               </div>
             </div>
-            {% if example.response_information != null || example.json_response != null %}
+            {% if example.response_information != null or example.json_response != null %}
               <strong>Response:</strong>
             {% endif %}
             {% if example.response_information != null %}
