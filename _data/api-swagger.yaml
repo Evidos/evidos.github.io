@@ -142,7 +142,7 @@ paths:
                       type: boolean
                     SignRequestMessage:
                       required: SendSignRequest
-                      description: The message of the sign request in plain text (no HTML).
+                      description: The message of the sign request in plain text. Newlines can be created by including a \n in the json, HTML is not allowed.
                       type: string
                     SendSignConfirmation:
                       required: false
@@ -202,7 +202,7 @@ paths:
                     Message:
                       type: string
                       required: true
-                      description: The email message towards the receiver. Plain text (no HTML).
+                      description: The email message towards the receiver in plain text. Newlines can be created by including a \n in the json, HTML is not allowed.
                     Reference:
                       type: string
                       required: false
