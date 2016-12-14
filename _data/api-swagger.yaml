@@ -22,15 +22,7 @@ paths:
           required: true
       responses:
         '200':
-          description: Details of the transaction
-          schema:
-            title: Transaction
-            type: object
-            properties:
-              Id:
-                type: string
-              CreatedDate:
-                type: dateTime
+          description: Details of the transaction. See <a href="/details/transaction-object/">full transaction object</a> for more details.
         '401':
           description: Not authorized to access the specified transaction
   '/api/transaction/{transactionId}/file/{fileId}/':
@@ -193,7 +185,7 @@ paths:
                     Email:
                       type: string
                       required: true
-                      description: The e-mail address of the reveiver.
+                      description: The e-mail address of the receiver.
                     Language:
                       type: string
                       required: false
@@ -233,7 +225,7 @@ paths:
                 description: Any valid json object which we will return back to you when doing a GET on the transaction or when we send a postback.
       responses:
         '200':
-          description: Details of the created transaction.
+          description: Details of the created transaction. See <a href="/details/transaction-object/">full transaction object</a> for more details.
         '401':
           description: Not authorized to create a transaction.
   '/api/transaction/{transactionId}/file/{fileId}':
