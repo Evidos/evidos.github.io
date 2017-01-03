@@ -44,6 +44,13 @@
           "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00"
         },
         {
+          "Id": "3dfc9002-4d2d-467d-8266-e57b5b70a134",
+          "Code": 105,
+          "Activity": "DocumentOpened",
+          "Info": "contract file",
+          "CreatedDateTime": "2016-06-15T23:35:33+02:00"
+        },
+        {
           "Id": "04adfda3-dd35-4f4d-af34-d2a08a4434f6",
           "Code": 203,
           "Activity": "Signed",

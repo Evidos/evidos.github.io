@@ -24,6 +24,8 @@ activity:
     Message: Opened
   - Number: 104
     Message: Reminder sent
+  - Number: 105
+    Message: Document opened
   - Number: 201
     Message: Cancelled
   - Number: 202
