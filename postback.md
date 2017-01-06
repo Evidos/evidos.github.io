@@ -28,7 +28,11 @@ To verify that the postback responses are from SignHost you MUST verify our digi
 
 The checksum is generated using the following formula:
 
-    Checksum = SHA1(transaction id + | + file id + | + status  + | + sharedsecret)
+    Checksum = SHA1(transaction id + || + status  + | + sharedsecret)
+
+> There is a double “pipe” sign between the transaction id and the status.
+> If you are still using our legacy API - you are seeing a File object in your postback and get responses - you'll have to include the file id at this location.
+> eg ```Checksum = SHA1(transaction id + | + file id + | + status  + | + sharedsecret)```
 
 As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter between values. You may need to put the delimiters between single quotes (‘) or double quotes (“) depending on the programming language that you will be using. The value returned by the SHA1 function is a string of 40 characters representing a hexadecimal value. How to use the SHA1 algorithm depends on your development platform. Most languages and frameworks (such as PHP and ASP.NET) have built-in implementations of the SHA1 algorithm. For other languages, such as classic ASP, implementations of the SHA1 algorithm are available online.
 
