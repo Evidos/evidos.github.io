@@ -232,12 +232,6 @@ definitions:
                 The mobile phone number of the signer.
                 Required if `RequireSmsVerification` is set.
               example: "+31123456789"
-            Iban:
-              type: string
-              description: |
-                The IBAN of the signer.
-                Required if `RequireIdealVerification` is set.
-              example: "NL13TEST0123456789"
             BSN:
               type: string
               description:  |
@@ -250,10 +244,6 @@ definitions:
               type: boolean
             RequireSmsVerification:
               description: Require that the signer has to verify by sms.
-              default: false
-              type: boolean
-            RequireIdealVerification:
-              description: Require that the signer has to verify by iDeal.
               default: false
               type: boolean
             RequireDigiDVerification:
@@ -449,12 +439,32 @@ definitions:
       Type:
         type: string
         enum:
+          - iDeal
           - iDIN
         description:
           Type of the verification object
 
     required:
     - Type
+
+  iDeal:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Iban:
+          type: string
+          description: |
+            The IBAN of the signer.
+            When provided during the creation of the transaction this IBAN is
+            verified during the verification flow to make sure these and the actual IBAN number match.
+          example: "NL13TEST0123456789"
+        AccountHolderName:
+          type: string
+          readOnly: true
+        AccountHolderCity:
+          type: string
+          readOnly: true
 
   iDIN:
     allOf:

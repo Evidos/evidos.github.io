@@ -36,7 +36,6 @@
       "RequireScribble": true,
       "RequireEmailVerification": true,
       "RequireSmsVerification": true,
-      "RequireIdealVerification": false,
       "RequireDigidVerification": false,
       "RequireKennisnetVerification": false,
       "RequireSurfnetVerification": false,
