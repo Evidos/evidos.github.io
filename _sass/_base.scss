@@ -105,7 +105,13 @@ a {
     &:hover {
         color: $text-color;
         text-decoration: underline;
+        text-decoration-style: wavy;
     }
+}
+
+td a,
+p a {
+    text-decoration: underline;
 }
 
 

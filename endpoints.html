@@ -24,6 +24,16 @@ permalink: /endpoints/
   <br>
   <!-- End list of al endpoints-->
 
+  <!-- Begin list of models -->
+  <h3>All models:</h3>
+  <ul >
+    {% for model in site.data.api-swagger.definitions %}
+      {% capture def %}#/definitions/{{ model[0] }}{%endcapture%}
+    <li><a href="#{{ def | uri_escape }}">{{def}}</a>
+    {% endfor %}
+  </ul>  
+  <!-- End list of models -->
+
   {% for path in site.data.api-swagger.paths %}
     {% for m in path[1] %}
       {% assign method_name = m[0] %}

@@ -12,6 +12,24 @@
 	<tbody>
 {% endif %}
 
+	{% assign properties = include.prop_schema.properties %}
+	{% if include.prop_schema.allOf %}
+		{% assign properties = "" | split: "|" %}
+		Inherits properties from
+	
+		{%for object in include.prop_schema.allOf %}
+			{%if object['$ref']%}
+				<a href="#{{ object["$ref"] | uri_escapce }}">{{object['$ref']}}</a>
+			{%endif%}
+		{%endfor%}
+
+		{% assign object = include.prop_schema.allOf | where: "type","object"  %}
+		{% assign object = object[0]  %}
+		{% for prop in object.properties %}
+			{% assign properties = properties | push: prop  %}
+		{%endfor%}
+	{% endif %}
+
 	{% if include.prop_schema.additionalProperties and include.prop_schema.description %} 
 	<tr>
 		{% for d in (1..include.level) > 0 %}
@@ -24,7 +42,7 @@
 	</tr>
 	{% endif %}
 
-	{% for prop in include.prop_schema.properties %}
+	{% for prop in properties %}
 
 		{% assign prop_name = prop[0] %}
 		{% assign prop_schema = prop[1] %}

@@ -459,7 +459,37 @@ definitions:
   iDIN:
     allOf:
     - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        AccountHolderName:
+          type: string
+          readOnly: true
+          description: |
+            Name of the idin consumer / signer.
+            Currently we don't support supplying a value in this property to ensure the expected account holder name matches.
+            This could change in the feature.
+        AccountHolderAddress1:
+          type: string
+          readOnly: true
+        AccountHolderAddress2:
+          type: string
+          readOnly: true
+        AccountHolderDateOfBirth:
+          type: string
+          format: date
+          readOnly: true
+          description: Date of birth of idin consumer / signer
+          example: 2001-12-31
+    example: | 
+      An iDIN verification response may have the following content
 
+      ```json
+      {
+        "Type": "iDIN",
+        "AccountHolderName": "John Doe",
+        "AccountHolderDateOfBirth": "2001-12-31"
+      }
+      ```
   FileEntry:
     type: object
     properties:
