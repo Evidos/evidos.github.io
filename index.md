@@ -32,7 +32,7 @@ To authenticate you have to add two HTTP headers to every request you make. The 
 
 In your request you can specify a PostbackUrl. On this URL on your own server Signhost will do a POST with the status of the request. We only support a postback on the default http:// port 80 and https:// port 443. We strongly recommend to use a https:// protected URL. We will only issue 1 postback per PostbackURL at a time, one-by-one.
 
-When a postback fails we will queue all new postbacks and retry these again at a later time. If the postback succeeds again we will continue issueing the remaining queued postbacks.
+When a postback fails we will queue all new postbacks and retry these again at a later time. If the postback succeeds again we will continue issuing the remaining queued postbacks.
 
 For more information about postbacks and calculating the checksum and the body of the request view the [webhook postback sample](/postback) help page.
 
