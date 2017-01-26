@@ -49,7 +49,7 @@ When you create a transaction the Inviteflow is initiated setting the SendSignRe
 
 ## Specify signature location
 
-We provide two ways to specify the location for the signatures.
+We provide three ways to specify the location for the signatures.
 
 ### Signer tag
 
@@ -59,13 +59,20 @@ If you do not want to show a {% raw %}{{Signer}}{% endraw %} tag in your documen
 
 Although PDF is a document standard we strongly recommend to test the signer location and {% raw %}{{Signer}}{% endraw %} tag to see if the location is correct.
 
-Please be aware that including a lot of {% raw %}{{Signer}}{% endraw %} tags will have an impact on the performance and signature validation process. For a digital signature we do not recommend to include a signature on every page. If you do not include the {% raw %}{{Signer}}{% endraw %} tag we will use the default signing location; top right on the first page.
+Please be aware that including a lot of {% raw %}{{Signer}}{% endraw %} tags will have an impact on the performance and signature validation process. For a digital signature we do not recommend to include a signature on every page. If you do not include the {% raw %}{{Signer}}{% endraw %} tag, or you do not use another way to specify the location, we will use the default signing location; top right on the first page.
 
 ### Signature fields
 
 A second method of specifying the signature location is with the use of pdf signature fields. To make sure that the signature fields are recognized they have to be named a specific pattern: Signature-x_y. Where the x stands for the signer and the y for the signature number.
 
 For example: Signature-1_2 will specify the place for the second signature of the first signer.
+
+### API call
+
+Besides specifying the signature location via the signer tag or with already existing signature fields you could also specify the location of the signature via the api.
+
+For this method you do not need to prepare the PDF file in anyway. The flow of making a transaction is basically the same as before, although this time you need to add file meta data to the transaction before uploading the file(s). For more information about this method please take a further look at the following post: [How to create a transaction with api generated fields]({% post_url 2016-10-06-api-generated-fields %}).
+
 
 ## Formats
 
