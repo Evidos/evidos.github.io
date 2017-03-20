@@ -1,0 +1,51 @@
+delay:
+  - Number: 1
+    Amount: "00:02"
+    Total: "00:02"
+    Comment: ""
+  - Number: 2
+    Amount: "00:05"
+    Total: "00:07"
+    Comment: ""
+  - Number: 3
+    Amount: "00:11"
+    Total: "00:18"
+    Comment: "Email sent."
+  - Number: 4
+    Amount: "00:25"
+    Total: "00:43"
+    Comment: ""
+  - Number: 5
+    Amount: "00:55"
+    Total: "01:39"
+    Comment: ""
+  - Number: 6
+    Amount: "02:05"
+    Total: "03:44"
+    Comment: "Email sent."
+  - Number: 7
+    Amount: "04:39"
+    Total: "08:23"
+    Comment: ""
+  - Number: 8
+    Amount: "10:25"
+    Total: "18:48"
+    Comment: ""                        
+  - Number: 9
+    Amount: "23:17"
+    Total: "42:06"
+    Comment: ""
+  - Number: 10
+    Amount: "52:05"
+    Total: "94:11"
+    Comment: |
+      Email sent, postback is marked as failed.
+      Every hour the next postback will be attempted and is immediately marked as failed if not successful.
+  - Number: 11
+    Amount: "116:27"
+    Total: "210:39"
+    Comment: ""
+  - Number: 12
+    Amount: ""
+    Total: ""
+    Comment: "Maximized at 30 days of delay."

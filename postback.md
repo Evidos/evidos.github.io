@@ -24,9 +24,31 @@ A postback is sent at-least-once.
 There is no deduplication.
 If the postback url returns a non 2xx http status code we will queue any new postbacks.
 In the meantime we will retry to deliver the first failed postback with an increasing interval (the first retry is within a few minutes).
-After 5 successive failed attempts we will send you an email.
 We will include the attachment with the received response (if any).
 When we receive a 2xx http status code we will mark the postback url as available and start sending the queued postbacks.
+
+The following postback retry schedule is used:
+
+<table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Retry delay</th>
+        <th>Since first postback</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for delay in site.data.postback-delay.delay %}
+      <tr>
+        <th>{{ delay.Number }}</th>
+        <td>{{ delay.Amount }}</td>
+        <td>{{ delay.Total }}</td>
+        <td>{{ delay.Comment }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
 
 ### Checksum
 
