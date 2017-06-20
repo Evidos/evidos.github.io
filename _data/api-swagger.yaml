@@ -136,6 +136,10 @@ paths:
     put:
       description: |
         Add a file to the transaction or overwrite an existing file with the same {fileId}.
+        When uploading a file you can supply a Digest header.
+        The value of this header should be a Base64 encoded hash of the supplied file using SHA256 as the hashing algorithm.
+        An example of a correct Digest header is 'SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE='.
+        For more information about the Digest header refer to RFC3230 and RFC5843.
         The file parameter can either be the PDF document or JSON <a href="##/definitions/FileMetaData">metadata</a>.
         Metadata must always be supplied first.
         Only PDF documents with Content-Type 'application/pdf' are accepted.
