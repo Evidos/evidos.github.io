@@ -560,9 +560,10 @@ definitions:
       Description:
         type: string
         description: With what description we'll display the file to the signer
-      Setparaph:
+      SetParaph:
         type: boolean
         description: Places a copy of the signer's scribble image on the bottom right of every page where no signature is present.
+        Note: due to the nature of advanced or qualified digital signatures, paraphs are merely a cosmetic addition.
       Signers:
         type: object
         description: |
