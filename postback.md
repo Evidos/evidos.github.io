@@ -30,7 +30,7 @@ When we receive a 2xx http status code we will mark the postback url as availabl
 
 ### Checksum
 
-To verify that the postback responses are from SignHost you MUST verify our digital signature checksum. This signature is a hash of some parameters from the response and the sharedsecret. The checksum is transmitted via the `Digest` HTTP header. In order the generate the Checksum you will need a sharedsecret.
+To verify that the postback responses are from SignHost you MUST verify our digital signature checksum. This signature is a hash of some parameters from the response and the sharedsecret. The checksum is transmitted in the JSON post data. In order the generate the Checksum you will need a sharedsecret.
 
 The checksum is generated using the following formula:
 
