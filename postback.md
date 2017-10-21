@@ -25,12 +25,12 @@ There is no deduplication.
 If the postback url returns a non 2xx http status code we will queue any new postbacks.
 In the meantime we will retry to deliver the first failed postback with an increasing interval (the first retry is within a few minutes).
 After 5 successive failed attempts we will send you an email.
-We will include the attachment with the received response (if any).
+We will include an attachment containing the received response (if any).
 When we receive a 2xx http status code we will mark the postback url as available and start sending the queued postbacks.
 
 ### Checksum
 
-To verify that the postback responses are from SignHost you MUST verify our digital signature checksum. This signature is a hash of some parameters from the response and the sharedsecret. In order the generate the Checksum you will need a sharedsecret.
+To verify that the postback responses are from SignHost you MUST verify our digital signature checksum. This signature is a hash of some parameters from the response and the sharedsecret. The checksum is transmitted in the JSON post data. In order the generate the Checksum you will need a sharedsecret.
 
 The checksum is generated using the following formula:
 
@@ -44,7 +44,7 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
 
 ### Request body formats
 
-```
+```javascript
 {
   "Id": "b10ae331-af78-4e79-a39e-5b64693b6b68",
   "Status": 20,
@@ -126,11 +126,10 @@ As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter 
 
 ### What happens if your postback URL is down or can't accept requests?
 
-If the webhook URL doesn't return a 2xx HTTP response code, that POST request will be re-attempted with a random increasing interval.
+If the webhook URL doesn't return a 2xx HTTP response code, that POST request will be retried with a randomly increasing interval.
 
-If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
-Requests are marked failed after about 1 week since the request was created.
-Subsequent postbacks are deferred until the first completes.
-Once the first postback request completes the defered requests will be processed sequentially.
+If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the oldest succeeds or is marked as failed. Postbacks marked as failed are permanent failures and will not be retried. Requests are marked failed after about 1 week since the request was created.
 
-Since postback requests can ultimately fail, it's best to accept and store data on your end (with an HTTP 200 response to Signhost) for later processing to avoid data loss.
+Once the oldest postback request completes the deferred requests will be processed in sequence.
+
+Since postback requests can ultimately fail, it's best to accept and store data on your end and return a HTTP 200 response to Signhost. You can then process the data out of band and prevent loss of transaction information due to a postback being marked as failed.
