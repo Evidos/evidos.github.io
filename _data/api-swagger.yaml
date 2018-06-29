@@ -529,8 +529,7 @@ definitions:
           "Type": "iDeal",
           "Iban": "NL01ABNA0123456789",
           "AccountHolderName": "DOE J",
-          "AccountHolderCity": ""
-        }
+          "AccountHolderCity": "Amsterdam"
       }
       ```
 
