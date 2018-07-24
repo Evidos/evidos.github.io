@@ -463,6 +463,7 @@ definitions:
         enum:
           - iDeal
           - iDIN
+          - SigningCertificate
         description:
           Type of the verification object
 
@@ -560,6 +561,27 @@ definitions:
         }
       }
       ```
+
+  SigningCertificate:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    example: |
+      To create a transaction with a signing certificate verification request used for official deeds, you will need a browser plugin and additional physical key(s).
+      Please consult support@evidos.nl when setting up a transaction with a signing certificate verification step.
+
+      In short, a Signing Certificate verification can be created with the following content.
+
+      ```json
+      {
+        "Verifications":
+          [
+            {
+              "Type": "SigningCertificate"
+            }
+          ]
+      }
+      ```
+
   FileEntry:
     type: object
     properties:
