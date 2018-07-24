@@ -80,6 +80,6 @@ This means on a GET or webhook postback the result will be the same as in the fi
 
 ### What does this mean for you?
 
-All datetime properties are still formatted according to [ISO8601](http://www.iso.org/iso/iso8601).
+All datetime properties are still formatted according to [ISO8601](https://www.iso.org/iso/iso8601).
 When you are using a correct JSON parser this should cause no problems for you.
 We are not changing the actual datetime values (no conversion is applied) but only including extra information.

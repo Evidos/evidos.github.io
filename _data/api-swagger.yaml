@@ -41,6 +41,11 @@ paths:
             $ref: "#/definitions/Transaction"
         '401':
           description: Not authorized to access the specified transaction
+        '410':
+          description: |
+            The transaction details are no longer available and as a result the returned JSON only contains partial historical data.
+            This happens when we cleaned the transaction for example due to reaching an end status (any status above 30),
+            or the expiration dates have expired.
     delete:
       description: |
         Delete a transaction by a transaction id.
@@ -144,7 +149,7 @@ paths:
         #### File digest header
         When uploading a file it is possible to send a digest header along with the http request.
         This header should contain a base64 encoded SHA checksum of the uploaded file.
-        For more information please refer to the [RFC 3230](http://www.ietf.org/rfc/rfc3230.txt) and [RFC 5843](http://www.ietf.org/rfc/rfc5843.txt) specifications.
+        For more information please refer to the [RFC 3230](https://www.ietf.org/rfc/rfc3230.txt) and [RFC 5843](https://www.ietf.org/rfc/rfc5843.txt) specifications.
 
         For example: `Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=`
       consumes:
@@ -236,39 +241,19 @@ definitions:
               type: string
               description: The e-mail address of the signer
               example: "john.doe@example.com"
-            Mobile:
+            IntroText:
               type: string
               description: |
-                The mobile phone number of the signer.
-                Required if `RequireSmsVerification` is set.
-              example: "+31123456789"
-            BSN:
-              type: string
-              description:  |
-                The BSN of the signer.
-              example: "900078479"
-            RequireScribble:
-              description: Require that the signer has to draw a scribble.
-              default: false
-              type: boolean
-            RequireSmsVerification:
-              description: Require that the signer has to verify by sms.
-              default: false
-              type: boolean
-            RequireDigiDVerification:
-              description: Require that the signer has to verify by DigiD.
-              default: false
-              type: boolean
-            RequireKennisnetVerification:
-              description: Require that the signer has to verify by Kennisnet.
-              default: false
-              type: boolean
-            RequireSurfnetVerification:
-              description: Require that the signer has to verify by Surfnet.
-              default: false
-              type: boolean
+                An intro text to show to the user during the sign proces.
+                This will be shown on the first screen to the signer and supports limitted markdown markup.
             Verifications:
-              description: List of verifications that the signer has to verify with.
+              description: |
+                List of verifications that the signer has to verify with.
+                The order in which the verifications are provided determine in which order the signer will have to perform the specified method.
+                You **must** use one of the following verifications as the last method:
+                - Consent
+                - PhoneNumber
+                - Scribble
               type: array
               items:
                 $ref: '#/definitions/Verification'
@@ -307,10 +292,6 @@ definitions:
             ScribbleName:
               description: The name of the signer, this will be pre filled in the scribble form.
               type: string
-            ScribbleNameFixed:
-              description: The switch to allow or disallow the signer to modify the ScribbleName in the scribble form.
-              default: false
-              type: boolean
             DaysToRemind:
               description: |
                 Amount of days before reminding the signers. -1 to disable reminders.
@@ -461,14 +442,67 @@ definitions:
       Type:
         type: string
         enum:
+          - Consent
+          - DigiD
+          - eHerkenning
           - iDeal
           - iDIN
-          - SigningCertificate
+          - Kennisnet
+          - PhoneNumber
+          - Scribble
+          - SigningCertificate 
+          - SURFnet
         description:
-          Type of the verification object
+          Type of the verification object.
+          The `Type` property **must** be the first property in the json!
 
     required:
     - Type
+
+  Consent:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      description: |
+        Adds a consent step to the signing process.
+    example: |
+      A consent verification response may have the following content:
+      ```json
+      {
+        "Type": "Consent"
+      }
+      ```
+
+  DigiD:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      description: |
+        Adds a DigiD step to the signing process.
+      properties:
+        Bsn:
+          type: string
+          description: |
+            When provided, the provided value must match the BSN of the credentials returned by DigiD.
+            The BSN is required to match an '11-proef'.
+    example: | 
+      A DigiD verification response may have the following content:
+      ```json
+      {
+          "Type": "DigiD",
+          "Bsn": "910078476"
+        }
+      }
+      ```
+  eHerkenning:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Uid:
+          type: string
+        EntityConcernIdKvkNr:
+          type: string
 
   iDeal:
     allOf:
@@ -561,27 +595,115 @@ definitions:
         }
       }
       ```
+  IPAddress:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        IPAddress:
+          type: string
+          readOnly: true
+    example: |
+      An IP Address verification response may have the following content:
+      ```json
+      {
+        "Type": "IPAddress",
+        "IPAddress": "198.51.100.42"
+      }
+      ```
+  Kennisnet:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+
+  PhoneNumber:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        Number:
+          type: string
+          description: |
+            The mobile phone number of the signer.
+            Must conform to E.164,
+            [the international public telecommunication numbering plan](https://en.wikipedia.org/wiki/E.164),
+            which requires the country calling code (e.g. +31).
+          example: "+31123456789"
+          required: true
+    example: |
+      A phone number verification response may have the following content:
+      ```json
+      {
+        "Type": "PhoneNumber",
+        "Number": "+31123456789"
+      }
+      ```
+
+  Scribble:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        RequireHandsignature:
+          type: boolean
+          default: false
+          description: |
+            When set the signer is required to draw a hand signature,
+            either via computer mouse, trackpad, or touchscreen.
+        ScribbleNameFixed:
+          type: boolean
+          default: false
+          description: |
+            When set the signer will not be able to change its scribble name.
+            When not set the signer can correct or provide a scribble name.
+        ScribbleName:
+          type: string
+          description: |
+             The name of the signer, this will be pre filled in the scribble form.
+             Required if `ScribbleNameFixed` is set.
+    example: |
+      A scribble verification response may have the following content:
+      ```json
+      {
+        "Type": "Scribble",
+        "RequireHandsignature": true,
+        "ScribbleName": "John Doe"
+      }
+      ```
 
   SigningCertificate:
     allOf:
     - $ref: '#/definitions/Verification'
+    - type: object
+      description: |
+        A signing certificate allows a signer to sign a document with its own certificate,
+        among others with a qualified certificate.
+      properties:
+        Issuer:
+          type: string
+          readOnly: true
+        Subject:
+          type: string
+          readOnly: true
+        Thumbprint:
+          type: string
+          readOnly: true
     example: |
-      To create a transaction with a signing certificate verification request used for official deeds, you will need a browser plugin and additional physical key(s).
-      Please consult support@evidos.nl when setting up a transaction with a signing certificate verification step.
-
-      In short, a Signing Certificate verification can be created with the following content.
-
+      A signing certificate verification response may have the following content:
       ```json
       {
-        "Verifications":
-          [
-            {
-              "Type": "SigningCertificate"
-            }
-          ]
+        "Type": "SigningCertificate",
+        "Issuer": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
+        "Subject": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
+        "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
       }
       ```
 
+  SURFnet:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+  
   FileEntry:
     type: object
     properties:
@@ -623,6 +745,11 @@ definitions:
       Description:
         type: string
         description: With what description we'll display the file to the signer
+      SetParaph:
+        type: bool
+        description: |
+          Places a copy of the signer's scribble image on the bottom right of every page where no signature is present.
+          Note: due to the nature of advanced or qualified digital signatures, paraphs are merely a cosmetic addition.
       Signers:
         type: object
         description: |
@@ -707,6 +834,7 @@ definitions:
       ```
         {
           "DisplayName": "Your personal contract",
+          "SetParaph": true,
           "Signers": {
             "SomeSignerId": {
               "FormSets": [ "FirstFormset" ]

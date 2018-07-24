@@ -21,6 +21,9 @@
 			{%if object['$ref']%}
 				<a href="#{{ object["$ref"] | uri_escapce }}">{{object['$ref']}}</a>
 			{%endif%}
+			{%if object.type == 'object' and object.description %}
+			{{object.description | markdownify}}
+			{%endif%}
 		{%endfor%}
 
 		{% assign object = include.prop_schema.allOf | where: "type","object"  %}

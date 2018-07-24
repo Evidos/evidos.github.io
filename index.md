@@ -110,7 +110,7 @@ When the user signs or rejects the transaction we will redirect the browser to t
 
 ## Return codes
 
-Our REST API uses the standard [HTTP/1.1 status codes](http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to return the status of your request.
+Our REST API uses the standard [HTTP/1.1 status codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html) to return the status of your request.
 In short this means that any status code in the range of:
 
 *   **2xx** (eg 200) your request was successful;
@@ -121,7 +121,7 @@ If you implement a retry policy you should use a backoff policy.
 
 ## Formats
 
-JSON results which contain a date, time or datetime property are formatted according to [ISO8601](http://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formats](http://www.w3.org/TR/NOTE-datetime).
+JSON results which contain a date, time or datetime property are formatted according to [ISO8601](https://www.iso.org/iso/iso8601). A short explanation of the format is available at [w3.org - Date and Time Formats](https://www.w3.org/TR/NOTE-datetime).
 
 ## Libraries & demos
 
@@ -135,7 +135,7 @@ There are a few libraries and demos available to make connecting to our API easi
 ## Handy tools
 
 *   [Hookbin](https://hookbin.com) for testing the postback.
-*   [JSONLint](http://jsonlint.com/) for formatting and checking json messages.
+*   [JSONLint](https://jsonlint.com/) for formatting and checking json messages.
 
 ## Posts
 <ul class="post-list">

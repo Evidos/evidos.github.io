@@ -5,7 +5,7 @@ permalink: /endpoints/
 ---
 <div class="home">
   <p>You can make HTTP GET, POST or PUT Requests. Requests are passed to the API by using JSON objects to the API endpoints with the appropriate parameters. The documentation for each API call will contain more detail on the parameters accepted by the call.</p>
-  <p>All responses are sent JSON-encoded. The specific responses (successful ones) are described in the documentation section for each method. See <a href="http://en.wikipedia.org/wiki/Json">http://en.wikipedia.org/wiki/Json</a> for more information on JSON.</p>
+  <p>All responses are sent JSON-encoded. The specific responses (successful ones) are described in the documentation section for each method. See <a href="https://en.wikipedia.org/wiki/Json">https://en.wikipedia.org/wiki/Json</a> for more information on JSON.</p>
   <p>All input strings should be UTF-8 encoded, our response is always UTF-8 encoded.</p>
   <p>Some of our endpoints return both the status of the transaction and signer activities. Further details about the statuses and activities can be found <a href="/status-activity/">here</a>.</p>
 
@@ -183,6 +183,7 @@ permalink: /endpoints/
     These contain the type definitions as used by our API.
     We do our best to keep our API backwards compatible as long as you use documented features only.
     <em>Only use the types and properties documented. Don't use undocument properties you see in the returned JSON as they may be obsoleted properties and/or contain invalid data.</em>
+    The sample data provided is purely fictional.
   </p>
 
   {% for def in site.data.api-swagger.definitions %}
