@@ -14,7 +14,7 @@ The service is available via our GUI based online portal: [https://portal.signho
 This document describes the Signhost REST API implementation.
 
 The REST API is the underlying interface for all of our official Signhost API methods. It's the most direct way to access the API.
-This reference document is designed for those interested in developing for solutions using the SignHost.com REST Api Signing feature or for those interested in exploring Ondertekenen.nl integration features in detail.
+This reference document is designed for those interested in developing for solutions using the SignHost.com REST API Signing feature or for those interested in exploring Ondertekenen.nl integration features in detail.
 
 Further details about the methods can be found [here](/).
 

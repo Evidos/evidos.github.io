@@ -23,8 +23,8 @@ First you will have to create a transaction. We'll use the same flow as in
 Example
 
 	curl \
-		-H "Authorization: APIKey <usertokenhere>" \
-		-H "Application: APPKey <appkeyhere>" \
+    -H "Authorization: APIKey {usertoken here}" \
+    -H "Application: APPKey {appkey here}" \
 		-H "Content-Type: application/json" \
 		-d '{
 		  "Signers": [
@@ -192,8 +192,8 @@ In the simplest scenario you can only provide a value for `Search`.
 Example
 
 	curl \
-		-H "Authorization: APIKey <usertokenhere>" \
-		-H "Application: APPKey <appkeyhere>" \
+    -H "Authorization: APIKey {usertoken here}" \
+    -H "Application: APPKey {appkey here}" \
 		-H "Content-Type: application/json" \
 		-XPUT \
 		-d '{
@@ -232,8 +232,8 @@ filedId       | A unique id to be created at your side to identity the document.
 Example
 
 	curl \
-		-H "Authorization: APIKey <usertokenhere>" \
-		-H "Application: APPKey <appkeyhere>" \
+    -H "Authorization: APIKey {usertoken here}" \
+    -H "Application: APPKey {appkey here}" \
 		-H "Content-Type: application/pdf" \
 		-XPUT \
 		-T Contract.pdf \
@@ -252,8 +252,8 @@ Example
 Example
 
 	curl \
-		-H "Authorization: APIKey <usertokenhere>" \
-		-H "Application: APPKey <appkeyhere>" \
+		-H "Authorization: APIKey {usertoken here}" \
+		-H "Application: APPKey {appkey here}" \
 		https://api.signhost.com/api.transaction/SomeTransactionId/start
 
 Success 200

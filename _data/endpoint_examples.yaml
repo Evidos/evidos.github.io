@@ -2,8 +2,8 @@ get/api/transaction/{transactionId}:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
     json_response: get_api_transaction_transactionId.json
     response_information: This method returns a transaction.
@@ -11,22 +11,22 @@ get/api/transaction/{transactionId}/file/{fileId}/:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/file/Contract.pdf
 get/api/file/receipt/{transactionId}:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api/file/receipt/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
 post/api/transaction:
   - example:
     curl_request: |
       curl \
-      -H "Authorization: APIKey <usertokenhere>" \
-      -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
       -H "Content-Type: application/json" \
       -d '{
         "Signers": [
@@ -67,8 +67,8 @@ put/api/transaction/{transactionId}/file/{fileId}:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "SH-DisplayName: Your personal contract" \
         -H "Content-Type: application/pdf" \
         -H "Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=" \
@@ -79,15 +79,15 @@ put/api/transaction/{transactionId}/start:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
 delete/api/transaction/{transactionId}:
   - example:
     curl_request: |
       curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/json" \
         -d '{
           "SendNotifications": true

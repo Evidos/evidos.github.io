@@ -42,8 +42,8 @@ First you will have to create a transaction. We'll use the same flow as in
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/json" \
         -d '{
           "Signers": [
@@ -114,8 +114,8 @@ The FormSets key should contain an array with only the fileId.
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/json" \
         -XPUT \
         -d '{
@@ -144,8 +144,8 @@ fileId        | A unique id to be created at your side to identity the document.
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/pdf" \
         -XPUT \
         -T Contract.pdf \
@@ -164,8 +164,8 @@ Example
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api.transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
 
 Success 200

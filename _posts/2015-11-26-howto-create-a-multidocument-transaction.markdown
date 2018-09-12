@@ -21,8 +21,8 @@ When all documents are uploaded you'll need to start the transaction.
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "Content-Type: application/json" \
         -d '{
           "Signers": [
@@ -88,8 +88,8 @@ SH-DisplayName | The name of the document we will display on the screen
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "SH-DisplayName: Your personal contract" \
         -H "Content-Type: application/pdf" \
         -XPUT \
@@ -103,8 +103,8 @@ Success 204
 You can add another file by using a different fileId like this:
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         -H "SH-DisplayName: Extra document to read and sign" \
         -H "Content-Type: application/pdf" \
         -XPUT \
@@ -118,8 +118,8 @@ You can add another file by using a different fileId like this:
 Example
 
     curl \
-        -H "Authorization: APIKey <usertokenhere>" \
-        -H "Application: APPKey <appkeyhere>" \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
         https://api.signhost.com/api.transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
 
 Success 200
