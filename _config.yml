@@ -9,7 +9,7 @@
 title: Signhost api documentation
 email: support@signhost.com
 description: > # this means to ignore newlines until "baseurl:"
-  Digitally sign your documents using signhost.
+  Digitally sign your documents using Signhost.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://signhost.com" # the base hostname & protocol for your site
 twitter_username: evidos

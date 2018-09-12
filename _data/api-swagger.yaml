@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Signhost api
-  description: Integrate with signhost using our API to create transactions and retrieve current status.
+  description: Integrate with Signhost using our API to create transactions and retrieve current status.
   version: "1.0"
   contact: 
     name: "support@signhost.com"
@@ -19,7 +19,7 @@ parameters:
     required: true
   ApiKeyParam:
     name: Authorization
-    description: The API key
+    description: The usertoken
     in: header
     type: string
     required: true

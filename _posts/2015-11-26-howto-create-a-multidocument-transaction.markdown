@@ -124,4 +124,4 @@ Example
 
 Success 200
 
-When all files are uploaded you can tell signhost to start the transaction. Once the transaction is started signers can start viewing and signing the documents.
+When all files are uploaded you can tell Signhost to start the transaction. Once the transaction is started signers can start viewing and signing the documents.
