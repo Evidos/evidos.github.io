@@ -54,7 +54,7 @@ If you would like to make use of the Invite flow, you can do so by setting the S
 
 If you choose to make use of the Invite flow we will send a reminder after 7 days, you can adjust the amount of days by supplying a DaysToRemind parameter during the POST api/transaction (a value of -1 disables reminders).
 
-When the transaction is successfully signed (Status=30) you will be able to GET the signed document and receipt with a HTTP GET request to [api/file/document/{fileId}](/endpoints#get/api/transaction/{transactionId}/file/{fileId}/) or [api/file/receipt/{transactionId}](/endpoints#get/api/file/receipt/{transactionId}).
+When the transaction is successfully signed (Status=30) you will be able to GET the signed document and receipt with a HTTP GET request to [api/transaction/{transactionId}/file/{fileId}/](/endpoints#get/api/transaction/{transactionId}/file/{fileId}/) or [api/file/receipt/{transactionId}](/endpoints#get/api/file/receipt/{transactionId}).
 Do not forget to add the authorization headers as well.
 
 For legal proof it is important to store both the signed document and the receipt.
