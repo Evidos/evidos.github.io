@@ -267,6 +267,10 @@ definitions:
                 Available / valid if `SendSignRequest` is set to false.
               type: string
               readOnly: true
+            SignRequestSubject:
+              description: |
+                The subject of the sign request in plain text.
+              type: string
             SignRequestMessage:
               description: |
                 The message of the sign request in plain text.
@@ -377,6 +381,10 @@ definitions:
               type: string
               description: The language of the receiver, only de-DE, en-US, es-ES, fr-FR, it-IT and nl-NL are allowed.
               default: nl-NL
+            Subject:
+              type: string
+              description: The subject of the emailt towards the receiver in plain text.
+              default: empty string
             Message:
               type: string
               description: The email message towards the receiver in plain text. Newlines can be created by including a \n in the json, HTML is not allowed.
