@@ -451,6 +451,7 @@ definitions:
           - eIDAS Login
           - iDeal
           - iDIN
+          - itsme Identification
           - Kennisnet
           - PhoneNumber
           - Scribble
@@ -647,6 +648,51 @@ definitions:
             "urn:nl:bvn:bankid:1.0:consumer.legallastnameprefix": "van der",
             "urn:nl:bvn:bankid:1.0:consumer.preferredlastnameprefix": "van der"
         }
+      }
+      ```
+
+  itsme Identification:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      properties:
+        PhoneNumber:
+          type: string
+          readOnly: true
+          description: |
+            The mobile phone number of the signer.
+            Must conform to E.164,
+            [the international public telecommunication numbering plan](https://en.wikipedia.org/wiki/E.164),
+            which requires the country calling code (Only the Belgian country calling code is supported: +32).
+          example: "+32123456789"
+        Attributes:
+          type: map of string
+          readOnly: true
+          description: |
+            Contains all available itsme Identification attributes.
+            These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
+    example: |
+      An itsme Identification verification response may have the following content:
+      ```json
+      {
+          "Type": "itsme Identification",
+          "PhoneNumber": "+32012345678"
+          "Attributes": {
+            "country": "BE",
+            "email": "j.doe@example.nl",
+            "email_verified": "False",
+            "name": "John Doe",
+            "phone_number_verified": "True",
+            "gender": "male",
+            "given_name": "John",
+            "phone_number": "+32 012345678",
+            "locale": "nl",
+            "family_name": "Doe",
+            "birthdate": "1935-07-31",
+            "street_address": "viable  street",
+            "locality": "Brussels",
+            "postal_code": "1256"
+          }
       }
       ```
   IPAddress:
