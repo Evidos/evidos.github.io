@@ -38,7 +38,7 @@ Below you find a HTTP request header example:
     Content-Type: application/json
     Authorization: APIKey {usertoken here}
     Application: APPKey {appkey here}
-    Accept: */*
+    Accept: application/vnd.signhost.v1+json
     Connection: keep-alive
 
 ## Get signed document and receipt
