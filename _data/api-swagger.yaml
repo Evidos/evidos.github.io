@@ -673,7 +673,7 @@ definitions:
           readOnly: false
           description: |
             The mobile phone number of the signer.
-            Must be conform to E.164,
+            Must be conform E.164,
             [the international public telecommunication numbering plan](https://en.wikipedia.org/wiki/E.164),
             which requires the country calling code (Only the Belgian country calling code is supported: +32).
           example: "+32123456789"
