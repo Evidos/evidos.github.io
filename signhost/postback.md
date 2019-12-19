@@ -1,7 +1,12 @@
 ---
 layout: page
 title: Postback
-permalink: /postback/
+permalink: signhost/postback/
+product: Signhost
+
+redirect_from:
+  - /postback
+  - /postback/
 ---
 
 The Signhost postback service is meant to provide realtime updates on your transactions.

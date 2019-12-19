@@ -5,6 +5,7 @@ date:   2016-10-06 00:00:00 +0000
 categories: api howto
 tags:
 - formfields
+product: Signhost
 ---
 
 ## How-to create a transaction with api generated fields

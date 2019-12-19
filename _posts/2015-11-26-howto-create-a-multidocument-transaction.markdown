@@ -5,6 +5,7 @@ date:   2015-11-26 00:00:00 +0000
 categories: api howto
 tags:
 - multidoc
+product: Signhost
 ---
 
 ## How-to start a multi document transaction

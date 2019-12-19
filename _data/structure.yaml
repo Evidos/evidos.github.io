@@ -1,0 +1,28 @@
+# Frontpage
+- name: Evidos
+  menu:
+  - title: About
+    permalink: /about/
+
+# Products
+- name: Forms
+  menu:
+  - title: Basic Information
+    permalink: /forms/
+  - title: Designing the webform
+    permalink: /forms/design
+  - title: Initiate Form Url
+    permalink: /forms/initiate
+  - title: Configuration
+    permalink: /forms/configuration
+
+- name: Signhost
+  menu:
+  - title: Basic Information
+    permalink: /signhost/
+  - title: Statuses & Activities
+    permalink: /signhost/status-activity/
+  - title: Postback
+    permalink: /signhost/postback/
+  - title: Endpoints & Model types
+    permalink: /signhost/endpoints/

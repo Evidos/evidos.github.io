@@ -3,6 +3,7 @@ layout: post
 title:  "Updated timezone information on data retrieval"
 date:   2015-12-07 00:00:00 +0000
 categories: api changes
+product: Signhost
 ---
 
 ## Losing timezone information

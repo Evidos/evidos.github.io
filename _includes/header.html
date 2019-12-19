@@ -1,9 +1,17 @@
+{% assign current_product = page.product  %}
 <header class="site-header">
 
   <div class="wrapper">
-
-    <a class="site-title" href="{{ site.baseurl }}/">{{ site.title }}</a>
-
+    <a class="site-title" href="/">Product:</a>
+    <select name="products" class="site-select" onchange="window.location.href=this.value">
+    {% for product in site.data.structure %}
+        {% if product.name == "Evidos" %}
+        <option {% if current_product == "Evidos" %} selected {% endif %} disabled autocomplete="off">-- Pick below --</option>
+        {% else %}
+        <option {% if current_product == product.name %} selected {% endif %} value="{{ product.menu[0].permalink }}" autocomplete="off">{{ product.name }}</option>
+        {% endif %}
+    {% endfor %}
+    </select>
     <nav class="site-nav">
       <a href="#" class="menu-icon">
         <svg viewBox="0 0 18 15">
@@ -13,11 +21,13 @@
         </svg>
       </a>
 
-      <div class="trigger">
-        {% for my_page in site.pages reversed %}
-          {% if my_page.title %}
-          <a class="page-link" href="{{ my_page.url | prepend: site.baseurl }}">{{ my_page.title }}</a>
-          {% endif %}
+       <div class="trigger">
+        {% for product in site.data.structure %}
+            {% if product.name == current_product %}
+                {% for item in product.menu %}
+                    <a class="page-link" href="{{ item.permalink }}">{{ item.title }}</a>
+                {% endfor %}
+            {% endif %}
         {% endfor %}
       </div>
     </nav>
