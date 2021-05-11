@@ -33,6 +33,9 @@ A name for the usertoken has to be submitted, after which the value for this use
 The amount of usertokens that can be generated for an account is limited to 64.
 If more usertokens are needed, this needs to be requested at support@signhost.com.
 
+### HTTP Headers
+{% include httpheaders.html %}
+
 Below you find a HTTP request header example:
 
     Content-Type: application/json
