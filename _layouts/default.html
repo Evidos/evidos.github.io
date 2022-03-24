@@ -20,6 +20,15 @@
         DynamicMaxHeight({
             selector: '.dynamic-max-height'
         });
+        mermaid.initialize({
+            startOnLoad:true,
+            theme: 'forest',
+            flowchart:{
+                useMaxWidth: false,
+                htmlLabels: true
+            }
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
     </script>
 
   </body>
