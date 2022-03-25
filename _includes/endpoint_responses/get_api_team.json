@@ -1,0 +1,22 @@
+{
+	"Teams": [
+		{
+			"TeamId": "c6f5979a-bd59-4531-81eb-95022967070d",
+			"TeamName": "TagTeam",
+			"Members": [ 
+				{
+					"Id": "7db65766-97b9-4b77-80cc-3008a0fc1696",
+					"Name": "John Doe",
+					"EmailAddress": "user@example.com"
+				}
+			],
+			"InvitedMembers": [
+				{
+					"Id": "edc58d1b-2aa0-41d8-9520-169396dc9478",
+					"Name": "Jane Simons",
+					"EmailAddress": "jane@example.com"
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,325 @@
+swagger: '2.0'
+info:
+  title: Signhost Team api
+  description: |
+    Manage teams to enable management of transactions via these teams.
+
+    Teams can be used to manage transactions by multiple persons within an organization. For example this allows one person to create a transaction and another person to review the status.
+
+    See the `POST /api/transaction` for details on how to assign a transaction to a team.
+
+    Teams can be created by any user and deleted by any user. Thus the lifetime of a team looks like the following:
+    ```mermaid
+    stateDiagram-v2 
+      [*] --> Team: Create team
+      Team --> [*]: Delete team
+    ```
+
+    Members are first invited. After accepting an invite, the user becomes a member of a team. An invite can be rejected by the invited user or revoked by a team member.
+    Invited members may access the team they're invited for. Invited members are able to perform `GET api/team/{teamId}` and `GET api/team` and receive the team they're invited for in the response. Invited members however cannot access or modify any Transactions that are asigned to a team, only members of a team can do so.
+
+    Invite sequence:
+    ```mermaid
+    sequenceDiagram
+      api client->>api/team: Invite member
+      api/team->>InvitedMember: 📧 You're invited. Here's a link to accept the invite.
+      InvitedMember->>api/team: Sure! I'll accept that invite.
+      api/team->>api/team: Add the invited member to team
+    ```
+    The full state of a member in regards to a team:
+    ```mermaid
+    stateDiagram-v2
+      [*] --> InvitedMember: Invite member
+      InvitedMember --> Member: Accept invite
+      InvitedMember --> [*]: Reject invite
+      InvitedMember --> [*]: Revoke invite
+      Member --> [*]: Delete member
+    ```
+  version: "1.0"
+  contact:
+    name: "support@signhost.com"
+host: api.signhost.com
+schemes:
+  - https
+produces:
+  - application/json
+parameters:
+  AppkeyParam:
+    name: Application
+    description: The APPKey
+    in: header
+    type: string
+    required: true
+  ApiKeyParam:
+    name: Authorization
+    description: The usertoken
+    in: header
+    type: string
+    required: true
+
+paths:
+  '/api/team/':
+    get:
+      description: |
+        Returns a list of teams where the user is a member of, or is invited to become a member of.
+        When the user is not a member of any team not invited to become a member, an empty list of teams is returned.
+      responses:
+        '200':
+          description: Object with an array of teams
+          schema:
+            $ref: "#/definitions/TeamsResponse"
+
+  '/api/team/{teamId}':
+    get:
+      description: |
+        Returns a team with given id
+      responses:
+        '200':
+          description: Team with given teamId.
+          schema::
+            $ref: "#/definitions/Team"
+        '403':
+          description: The team exists but the user is not a member or invited member of the team
+        '404':
+          description: Team with given teamId not found
+    delete:
+      description: Deletes team with given `teamId`. Members and invited members of this team will not be deleted, only associations to this team will be deleted.
+      parameters:
+        - name: teamId
+          description: identifier of the team to delete
+          type: string
+          in: path
+      responses:
+        '200':
+          description: the team is successfully deleted
+        '400':
+          description: the team with given `teamId` does not have any members
+        '403':
+          description: the team exists, but the deleting user is not a member of this team
+        '404':
+          description: team not found with given `teamId`
+
+  '/api/team':
+    post:
+      description: |
+        Creates a new team where the user is automatically added as a member. 
+        Returns an object with the actual name of the team, which may differ from the provided name. Currently, whitespace trimming can cause this. Do not depend on the input name, but depend on the output name.
+
+        This POST endpoint supports the [proposed Idempotency HTTP header field](https://datatracker.ietf.org/doc/html/draft-idempotency-header-01). It follows the proposal by using the [`Idempotency-Key`](https://datatracker.ietf.org/doc/html/draft-idempotency-header-01#section-2.1) header field name.
+        - > **Note**: The idempotency is optional. Not providing an `Idempotency-Key` header with correct value results in a Http 400 (see [here](https://www.rfc-editor.org/rfc/rfc7230#appendix-B)).
+      parameters:
+        - name: TeamToCreate
+          description: details for the team to create
+          type: object
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/TeamToCreate'
+      responses:
+        '200':
+          description: Object with sanitized (trimmed) name of the team is in the system, but not created as a result of this call. A previous call with the same Idempotency-Key header value has cerated this team object instance.
+          schema:
+            $ref: "#/definitions/Team"
+        '201':
+          description: Object with sanitized (trimmed) name of the team is created
+          schema:
+            $ref: "#/definitions/Team"
+        '400':
+          description: |
+            - incorrect `Idempotency-Key` header value i.e. whitespace-only
+            - `Idempotency-Key` header value exceeds 64 characters. See also [Error Scenarios](https://datatracker.ietf.org/doc/html/draft-idempotency-header-01#section-2.7).
+            - empty team name provided
+        '403':
+          description: \`createTeam.TeamName` starts with `_$`
+        '409':
+          description: |
+            - Currently processing request with given team name and `Idempotency-Key`. See also [Error Scenarios](https://datatracker.ietf.org/doc/html/draft-idempotency-header-01#section-2.7).
+            - A team with given name already exists
+        '422':
+          description: Request with given `Idempotency-Key` in flight wit different team name. See also [Error Scenarios](https://datatracker.ietf.org/doc/html/draft-idempotency-header-01#section-2.7)
+
+  '/api/team/{teamId}/Invite/{emailAddress}':
+    put:
+      description: |
+        Invite user with given `emailAddress` in team with target `teamId`. 
+        When the user is successfully invited he will receive a notification (email). In this email, a link is present in which the user can accept the invite after which he becomes a member. When the invited user has not accepted or rejected the invite, a notification email will be sent after 5 days. When an invite is revoked, the invite is effectively deleted and no reminder email will be sent.
+        The user must exist within the organization of the user performing this call.
+      parameters:
+        - name: teamId
+          description: identifier of the team to invite the user in
+          type: string
+          in: path
+        - name: emailAddress
+          description: email address of the user to invite
+          type: string
+          in: path
+      responses:
+        '200':
+          description: User is successfully invited to the team. Returns the updated team object.
+          schema:
+            $ref: "#/definitions/Team"
+        '400':
+          description: Team has no members
+        '403':
+          description: Team exists, but the inviting user is not a member of this team
+        '404':
+          description: |
+            - team does not exists with given teamId
+            - user with `emailAddress` not found
+        '409':
+          description: |
+            - user with emailAddress is already invited
+            - user with emailAddress is already a member of this team
+        '422':
+          description: Invalid `emailAddress` provided
+
+  '/api/team/{teamId}/Invite':
+    put:
+      description: Accepts the invite for team with given `teamId`. Any pending reminder email will not be sent.
+      parameters:
+        - name: teamId
+          description: identifier of the team to accept the invite for
+          type: string
+          in: path
+      responses:
+        '200':
+          description: Invite successfully accepted - the user is now a member of the team. Returns the updated team object.
+          schema:
+            $ref: "#/definitions/Team"
+        '303':
+          description: user is already a member of team with given `teamId`. see `GET /api/team/{teamId}` to verify.
+        '404':
+          description: |
+            - team not found with given `teamId`
+            - invite for this user for team with given `teamId` not found
+    delete:
+      description: Rejects the invite for team with given `teamId`. Rejecting an invite is done by the invited member his/herself, while revoking an invite is done by a member of the team.  Any pending reminder email will not be sent.
+      parameters:
+        - name: teamId
+          description: identifier of the team the user is invited for and wants to reject the invite for
+          type: string
+          in: path
+      responses:
+        '200':
+          description: Invite successfully rejected - the user is not associated with given team any more. Returns the updated team object.
+          schema:
+            $ref: "#/definitions/Team"
+        '404':
+          description: |
+            - team not found with given `teamId`
+            - invite for this user for team with given `teamId` not found
+
+  '/api/team/{teamId}/Invite/{memberId}':
+    delete:
+      description: Revokes the invite for user with given `memberId`. Revoking an invite is performed by a member of the team, while rejecting an invite is done by the invited member him/herself. Any pending reminder email will not be sent.
+      parameters:
+        - name: teamId
+          description: identifier of the team to revoke the invite for
+          type: string
+          in: path
+        - name: memberId
+          description: identifier of member to revoke the invite for
+          type: string
+          in: path
+      responses:
+        '200':
+          description: The invite is successfully revoked. Returns the updated team object.
+          schema:
+            $ref: "#/definitions/Team"
+        '403':
+          description: Team exists, but the revoking user is not a member of this team
+        '404':
+          description: |
+            - team not found with given `teamId`
+            - invite for [user with given `memberId`] and [team with given `teamId`] not found
+
+  '/api/team/{teamId}/Member/{memberId}':
+    delete:
+      description: Deletes member with given `memberId` from team with given `teamId`. The user itself will not be deleted, only the association with the team.
+      parameters:
+        - name: teamId
+          description: identifier of the team to delete the member for
+          type: string
+          in: path
+        - name: memberId
+          description: identifier of member to delete from this team
+          type: string
+          in: path
+      responses:
+        '200':
+          description: the member is successfully deleted from the team. Returns the updated team object.
+          schema:
+            $ref: "#/definitions/Team"
+        '400':
+          description: the team with given `teamId` does not have any members
+        '403':
+          description: the team exists, but the deleting user is not a member of this team
+        '404':
+          description: |
+            - team not found with given `teamId`
+            - team exists, but the to be deleted user is not a member of this team
+            - invite for [user with given `memberToRevokeId`] and [team with given `teamId`] not found
+
+definitions:
+
+  TeamToCreate:
+    type: object
+    properties:
+      TeamName:
+        readonly: true
+        type: string
+        description: |
+          The name of the team to create. The name cannot start with the `_$` characters (underscore-dollar). The name may be pre- and suffixed with whitespace, but whitespace will be trimmed.
+
+  Team:
+    type: object
+    properties:
+      TeamId:
+        readonly: true
+        type: string
+        description: |
+          The teamId of the team. Used to identify the team instance with using other Team api endpoints.
+      TeamName:
+        readonly: true
+        type: string
+        description: |
+          The name of the created team. This is the name of the team provided in `TeamToCreate`, but is sanitized (trimmed).
+      Members:
+        readonly: true
+        type: array
+        description: a list of members of this team
+        items:
+          $ref: "#/definitions/TeamMember"
+      InvitedMembers:
+        readonly: true
+        type: array
+        description: a list of invited members of this team
+        items:
+          $ref: "#/definitions/TeamMember"
+
+  TeamMember:
+    type: object
+    description:
+    properties:
+      Id:
+        readonly: true
+        type: string
+        description: identifier of the member (userId)
+      Name:
+        readonly: true
+        type: string
+        description: full name of the member
+      EmailAddress:
+        readonly: true
+        type: string
+        description: email address of the member
+
+  TeamsResponse:
+    type: object
+    properties:
+      Teams:
+        type: array
+        description:
+        readonly: true
+        items:
+          $ref: "#/definitions/Team"

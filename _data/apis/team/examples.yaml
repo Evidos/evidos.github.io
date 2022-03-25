@@ -1,0 +1,65 @@
+post/api/team:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        -H "Idempotency-Key: csufmJwfJ5srEoPjMhliHoGuyw1k1ZokhEGgwaCZVDVsJdMUDhZoDSDJ0kQtFetd" \
+        -H "Content-Type: application/json" \
+        -d '{ "TeamName": "TheFinanceTeam" }'
+        https://api.signhost.com/api/team
+    json_response: post_api_team.json
+get/api/team/{teamId}:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        -H "Content-Type: application/json" \
+        https://api.signhost.com/api/team/0d581508-0d37-4e6f-8d8b-5fdfa95bded7
+    json_response: get_api_team_teamId.json
+get/api/team/:
+  - example:
+    curl_request: |
+      curl \
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        -H "Content-Type: application/json" \
+        https://api.signhost.com/api/team
+    json_response: get_api_team.json
+put/api/team/{teamId}/Invite/{emailAddress}:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/7f2c5f66-4ab3-4dc7-a763-ec10aff186c9/Invite/jane@example.com
+put/api/team/{teamId}/Invite:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/647c5222-5ce2-4b33-a2e0-d2881831b5e0/Invite
+delete/api/team/{teamId}/Invite:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/c8e4de38-8a70-4bf5-8416-b1e0897a1f2d/Invite
+delete/api/team/{teamId}/Invite/{memberToRevokeId}:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/4d3b8dfb-4d27-4040-a5bf-0484aff1e30d/Invite/2be3c6e7-372f-4c30-913f-940687cc4d42
+delete/api/team/{teamId}/Member/{memberToDeleteId}:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/07c9a673-1bb2-4615-93d2-3c5083d1ff4c/Member/4fc8f799-0254-4963-a877-831d7600f0e7
+delete/api/team/{teamId}:
+  - example:
+    curl_request: |
+        -H "Authorization: APIKey {usertoken here}" \
+        -H "Application: APPKey {appkey here}" \
+        https://api.signhost.com/api/team/07c9a673-1bb2-4615-93d2-3c5083d1ff4c

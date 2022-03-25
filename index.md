@@ -41,6 +41,12 @@ Below you find a HTTP request header example:
     Accept: application/vnd.signhost.v1+json
     Connection: keep-alive
 
+## Authorization
+
+The user creating a Transaction is authorized to read (GET) and manage (POST, PUT) that Transaction.
+
+In addition, when a Transaction is assigned to a Team, members of that Team are authorized to read (GET) and manage (POST, PUT) a Transaction. When the Team assigned to a Transaction is deleted, only the user that created the Transaction can read and manage that Transaction. 
+
 ## Get signed document and receipt
 
 With the Signhost API it is possible to facilitate two different signing flows to the signer.

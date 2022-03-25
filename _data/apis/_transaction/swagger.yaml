@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
-  title: Signhost api
-  description: Integrate with Signhost using our API to create transactions and retrieve current status.
+  title: Signhost Transaction api
+  description: Create transactions, add files, start a transaction and retrieve status information from transactions.
   version: "1.0"
   contact:
     name: "support@signhost.com"
@@ -29,6 +29,8 @@ paths:
     get:
       description: |
         Returns current transaction details.
+
+        When the transaction is assigned to a team, members of that team are allowed to request the transaction.
 
         Please do not use any GET method for active polling, but use our [postback service](/postback/) for this end.
       parameters:
@@ -58,6 +60,8 @@ paths:
 
         When a transaction is in an end-state the transaction the transaction will be cleaned.
         The status of the transaction will remain the same but we will clean any uploaded documents and sensitive data as soon as possible.
+
+        Only the creator of the transaction is allowed to DELETE the transaction. When the transaction is assigned to a team, team members are *not* allowed to DELETE the transaction.
       parameters:
         - name: transactionId
           type: string
@@ -90,7 +94,10 @@ paths:
 
   '/api/transaction/{transactionId}/file/{fileId}/':
     get:
-      description: Returns the (signed) document(s).
+      description: |
+        Returns the (signed or not yet signed) document(s).
+
+        When the transaction of the file is assigned to a team, members of that team are allowed to request the document(s).
       produces:
       - 'application/pdf'
       - 'application/json'
@@ -111,7 +118,10 @@ paths:
 
   '/api/file/receipt/{transactionId}':
     get:
-      description: Returns the receipt when the transaction is successfully signed (Status=30)
+      description: |
+        Returns the receipt when the transaction is successfully signed (Status=30)
+        
+        When the transaction is assigned to a team, members of that team are allowed to request the receipt.
       produces:
       - 'application/pdf'
       parameters:
@@ -150,6 +160,8 @@ paths:
         If your file requires metadata, the JSON metadata MUST be supplied first.
         Only PDF documents with Content-Type 'application/pdf' are accepted.
         Related posts [How to create a transaction with api generated fields](/api/howto/2016/10/06/api-generated-fields.html), [howto create a transaction with fillable pdf fields](/api/howto/2016/04/21/howto-create-a-transaction-with-fillable-pdf-fields.html).
+
+        Only the creator of the transaction is allowed to PUT a file. When the transaction is assigned to a team, team members are *not* allowed to PUT a file.
 
         #### File digest header
         When uploading a file it is possible to send a digest header along with the http request.
@@ -195,7 +207,10 @@ paths:
 
   '/api/transaction/{transactionId}/start':
     put:
-      description: Starts a transaction with the same {transactionId}
+      description: |
+        Starts a transaction with the same {transactionId}
+
+        Only the creator of the transaction is allowed to start a transaction. When the transaction is assigned to a team, team members are *not* allowed to start a transaction.
       parameters:
         - name: transactionId
           description: ID of an existing -- not yet started -- transaction
@@ -220,6 +235,10 @@ definitions:
         description: |
           The id of the transaction.
           Currently this property is read only but this may change in the future.
+      TeamId:
+        type: string
+        description: |
+          Optional teamId assigned to the transaction. Members of the team are subsequently allowed to view and manage this transaction.
       Files:
         readOnly: true
         type: object

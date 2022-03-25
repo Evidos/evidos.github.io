@@ -13,11 +13,34 @@ permalink: /endpoints/
     For backward compatibility reasons we do include null values in the v1 responses, but we won't in the v2 responses.
   </p>
   <p>Some of our endpoints return both the status of the transaction and signer activities. Further details about the statuses and activities can be found <a href="/status-activity/">here</a>.</p>
+  <p>POST requests do not support idempotency unless explicitly documented.</p>
+
+  <!-- Begin list of apis -->
+  <h1>Apis</h1>
+  <p>The main api of Signhost is the Transaction api. Furthermore, Signhost offers the Team api to manage teams.</p>
+  <p>List of apis:</p>
+  <ul class="api_list">
+  {% for api_kvp in site.data.apis %}
+    {% assign api_name = api_kvp[0] | remove: "_" | capitalize %}
+    {% capture api_ref %}{{ api_name }}{% endcapture %}
+    <li><a href="#{{ api_ref | uri_escape }}">{{ api_name }}</a></li>
+  {% endfor %}
+  </ul>
+  <!-- End list of apis -->
+  
+  {% for api_kvp in site.data.apis %}
+  <!-- transaction is prefixed with an underscore such that it sorts on top -->
+  {% assign api_name = api_kvp[0] | remove: "_" | capitalize %}
+  {% assign swagger = api_kvp[1].swagger %}
+  {% assign examples = api_kvp[1].examples %}
+
+  <h2 id="{{ api_name }}">{{ api_name }}</h2>
+  <p>{{ swagger.info.description | markdownify }}</p>
 
   <!-- Begin list of all endpoints-->
-  <h3>All endpoints:</h3>
+  <h3>Endpoints:</h3>
   <ul class="endpoint_list">
-    {% for path in site.data.api-swagger.paths %}
+    {% for path in swagger.paths %}
       {% for m in path[1] %}
         {% assign method_name = m[0] %}
         {% assign method = m[1] %}
@@ -30,16 +53,16 @@ permalink: /endpoints/
   <!-- End list of all endpoints-->
 
   <!-- Begin list of models -->
-  <h3>All models:</h3>
+  <h3>Models:</h3>
   <ul >
-    {% for model in site.data.api-swagger.definitions %}
+    {% for model in swagger.definitions %}
       {% capture def %}#/definitions/{{ model[0] }}{%endcapture%}
     <li><a href="#{{ def | uri_escape }}">{{def}}</a>
     {% endfor %}
   </ul>  
   <!-- End list of models -->
 
-  {% for path in site.data.api-swagger.paths %}
+  {% for path in swagger.paths %}
     {% for m in path[1] %}
       {% assign method_name = m[0] %}
       {% assign method = m[1] %}
@@ -136,7 +159,7 @@ permalink: /endpoints/
 
             <tr>
               <th>{{ response_name }}
-              <td>{{ response.description }}
+              <td>{{ response.description | markdownify }}
                 {% if response.schema["$ref"] %}
                   <a href="#{{ response.schema["$ref"] | uri_escape }}">
                   {{ response.schema["$ref"] }}
@@ -149,7 +172,7 @@ permalink: /endpoints/
       <!-- End Response section -->
 
       <!-- Begin example section -->
-      {% for endpoint in site.data.endpoint_examples %}
+      {% for endpoint in examples %}
         {% capture endpoint_name %}{{ method_name }}{{ path[0] }}{% endcapture %}
         {% if endpoint[0] == endpoint_name %}
         <h3>Example</h3>
@@ -191,7 +214,7 @@ permalink: /endpoints/
     The sample data provided is purely fictional.
   </p>
 
-  {% for def in site.data.api-swagger.definitions %}
+  {% for def in swagger.definitions %}
   {% assign model_name = def[0] %}
   {% assign model_schema = def[1] %}
 
@@ -201,4 +224,5 @@ permalink: /endpoints/
 
   {% comment %}<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p> {% endcomment %}
 
-</div>
+  {% endfor %}
+  </div>

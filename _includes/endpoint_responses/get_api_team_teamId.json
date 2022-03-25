@@ -1,0 +1,13 @@
+{
+	"TeamId": "0d581508-0d37-4e6f-8d8b-5fdfa95bded7",
+	"TeamName": "TheFinanceTeam",
+	"Members": [ 
+	  { 
+		"Id": "7db65766-97b9-4b77-80cc-3008a0fc1696",
+		"Name": "John Doe",
+		"EmailAddress": "user@example.com"
+	  }
+	],
+	"InvitedMembers": [
+	]
+}
