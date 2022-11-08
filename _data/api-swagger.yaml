@@ -1090,6 +1090,9 @@ definitions:
           Map of one or more form set definitions.
           The key of the map will be the formset name.
           The value will be the formset definition
+
+          **Please note:** When using FormSets to define fillible fields,
+          you also **MUST** specify the signature location using formsets.
         additionalProperties:
           type: object
           description: |
