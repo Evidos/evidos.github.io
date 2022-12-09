@@ -24,14 +24,16 @@ We require that all requests are done over SSL.
 
 ## Authentication
 
-To authenticate you have to add two HTTP headers to every request you make.
-The first header includes the name "Application" with the value "APPKey {appkey here}".
-This application key will be provided to you by email.
-The second header includes the name "Authorization" with the value "APIKey {your usertoken}".
-The Usertoken can be generated via Settings > Usertokens at the [SignHost Portal](https://portal.signhost.com/).
-A name for the usertoken has to be submitted, after which the value for this usertoken will be displayed once only.
-The amount of usertokens that can be generated for an account is limited to 64.
-If more usertokens are needed, this needs to be requested at support@signhost.com.
+To authenticate your requests, you must add two HTTP headers to every request you make.
+The first header, named "Application," should have the value "APPKey {appkey here}".
+You can generate your APPKey on the [Signhost portal](https://portal.signhost.com/ApplicationKey) and use it for multiple implementations.
+
+The second header, named "Authorization," should have the value "APIKey {your usertoken}".
+You can generate your usertoken on the Settings page in the [SignHost Portal](https://portal.signhost.com/Settings).
+
+Please note that both your usertoken and APPKey will only be shown once.
+We cannot retrieve these keys for you, as they are encrypted on our servers.
+If you lose them, you will need to generate new keys and store them in your application.
 
 Below you find a HTTP request header example:
 
