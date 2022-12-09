@@ -11,7 +11,8 @@ If you cannot implement the postback service, or you have any questions regardin
 ### Advised postback implementation flow
 
 To avoid postback queues for your application, we advise the following flow once a postback arrives at your server:
-  1. Perform [checksum validation](#checksum)
+  1. Perform [security validation](#security)
+      * Validate the security header (if setup), if not move to step 2;
       * Validate the body is valid JSON, if not move to step 2;
       * Validate the JSON has a Checksum property, if not move to step 2;
       * Validate the Checksum value, if there is a mismatch move to step 2.
@@ -48,6 +49,19 @@ There is no deduplication.
 By checking if the postback from instance one is already sent from instance two, we would re-introduce a single point of failure.
 Furthermore, it is possible to receive postbacks containing statuses or activities after a signer signed, or after the entire transaction is marked as signed.
 Your system will have to handle these scenarios.
+
+### Adding postback urls
+To specify the postback URL, you have two options:
+
+* Use the static method by specifying the postback URL(s) in the Portal for your application. This method supports both digest security and security headers.
+* Use the variable method by sending us a postback URL for each transaction when creating the transaction in the API with a POST call.
+
+We recommend using the postback management page found here:
+https://portal.signhost.com/RegisteredPostbacks
+
+This page allows you to easily manage postbacks, check for any queued requests, and use security features such as the Authorization header and checksum calculation. For more information, see our security section.
+
+When you create a postback URL, we automatically test if your endpoint is available using POST, PUT, DELETE, and GET calls.
 
 #### Multiple postback urls
 During the [POST of a transaction](/endpoints/##/paths//api/transaction/post) you have the possibillity to specify a postback URL for that specific transaction.
@@ -123,9 +137,24 @@ Please note that multiple postbacks with the same combination of these factors m
 
 Please note that your own business logic can handle this, so that subsequent status __30__ postbacks because of at-least-once or new signer activities do not overwrite or retrigger any actions on your end.
 
-### Checksum
+### Security
+We offer two methods to secure postbacks:
 
-To verify that the postback responses are from SignHost you MUST verify our digital signature checksum. This signature is a hash of some parameters from the response and the sharedsecret. In order to generate the Checksum you will need a sharedsecret.
+**Postback authorization header:**
+
+This can be any string that you enter while registering the postback URL.
+Postbacks sent from us will include this string in the Authorization header of the HTTP POST message,
+so you can verify that the message comes from us.
+
+**Checksum calculation:**
+
+This involves calculating a checksum from the information in a received message and a shared secret.
+This ensures that the contents of the message have not been altered. Since we use HTTPS connections,
+this may be unnecessary.
+You will receive the shared secret only once when registering your postback URL.
+
+Please note that IP whitelisting and certificate pinning should not be used as security measures because they are not always reliable.
+All security measures can be found and configured on the postback management page in the portal.
 
 The checksum is generated using the following formula:
 
@@ -136,6 +165,9 @@ The checksum is generated using the following formula:
 > eg ```Checksum = SHA1(transaction id + | + file id + | + status  + | + sharedsecret)```
 
 As you may have noticed the “pipe” sign ( &#124; ) is used as the delimiter between values. You may need to put the delimiters between single quotes (‘) or double quotes (“) depending on the programming language that you will be using. The value returned by the SHA1 function is a string of 40 characters representing a hexadecimal value. How to use the SHA1 algorithm depends on your development platform. Most languages and frameworks (such as PHP and ASP.NET) have built-in implementations of the SHA1 algorithm. For other languages, such as classic ASP, implementations of the SHA1 algorithm are available online.
+
+We strongly urge you to protect security information by only returning a HTTP 2xx response code, even if an expected security header or checksum does not match.
+Failing to do so could potentially allow attackers to probe your security measures or cause the formation of queues that could impact the performance of your system.
 
 ### What happens if your postback URL is down or can't accept requests?
 
