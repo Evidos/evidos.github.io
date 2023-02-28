@@ -294,7 +294,7 @@ definitions:
                 - PhoneNumber
                 - Scribble
                 - SigningCertificate<sup>*</sup>
-                - ZealiD Qualified<sup>*</sup>
+                - CSC Qualified<sup>*</sup>
 
                 <sup>*</sup> These verifications can not be used in any other position than the last.
               type: array
@@ -594,7 +594,7 @@ definitions:
           - itsme sign
           - SigningCertificate
           - SURFnet
-          - ZealiD Qualified
+          - CSC Qualified
         description: |
           Type of the verification object.
           The `Type` property **must** be the first property in the json!
@@ -606,7 +606,7 @@ definitions:
           - PhoneNumber
           - Scribble
           - SigningCertificate<sup>*</sup>
-          - ZealiD Qualified<sup>*</sup>
+          - CSC Qualified<sup>*</sup>
 
           <sup>*</sup> These verifications can not be used in any other position than the last.
 
@@ -999,7 +999,7 @@ definitions:
             Contains all available SURFnet attributes.
             These attributes may change, therefore we cannot guarantee the availability of any of these attributes.
 
-  ZealiD Qualified:
+  CSC Qualified:
     allOf:
     - $ref: '#/definitions/Verification'
     - type: object
@@ -1014,10 +1014,11 @@ definitions:
           type: string
           readOnly: true
     example: |
-      A ZealID Qualified verification response may have the following content:
+      A CSC Qualified verification response may have the following content:
       ```json
       {
-        "Type": "ZealID Qualified",
+        "Type": "CSC Qualified",
+        "Provider": "ZealiD Qualified",
         "Issuer": "CN=ZealiD Issuing CA 2020, O=ZealiD AB, OID.2.5.4.97=SE5569724288,E=support@zealid.com, STREET=Box 3437, Stockholm, PostalCode=11156, C=SE",
         "Subject": "CN=John Alexander Doe PASNL-NP11D0011 G=John Alexander, SN=Doe, C=NL,SERIALNUMBER=PASNL-NP1D0011",
         "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
