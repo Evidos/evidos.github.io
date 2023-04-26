@@ -275,6 +275,8 @@ definitions:
                 The order in which the authentications are provided determine in which order the signer will have to perform the specified method.
 
                 Authentications must be performed before the document(s) can be viewed.
+                When the authentication SecureDownload is configured, the download url for a signer is authenticated with the same method as the signing url.
+                The download url is returned in the response, and (optionally) emailed to the signer..
 
                 You **must** explicitly specify the API-version when using this feature.
                 This is done with the header: 'Accept: application/vnd.signhost.v1+json'.
@@ -310,6 +312,17 @@ definitions:
                 Available / valid if `SendSignRequest` is set to false.
               type: string
               readOnly: true
+            ShowUrl:
+              description: |
+                A unique URL per signer that provides the secure download flow for the signer.
+                Available / valid if any of the authentications `SecureDownload` field is set to true.
+              type: string
+              readOnly: true
+            ReceiptUrl:
+              description: |
+                A unique URL per signer that provides the secure receipt download flow for the signer.
+                Available / valid if any of the authentications `SecureDownload` field is set to true.
+              type: string
             SignRequestSubject:
               type: string
               description: |
@@ -543,6 +556,11 @@ definitions:
           description: |
             The level of confidence with which the identity of the signer has been determined.
             For further information, please refer to [Logius](https://www.logius.nl/diensten/digid/hoe-werkt-het).
+        SecureDownload:
+          type: boolean
+          description: |
+            Optional. Authentication method to be used to download the signed document(s).
+          default: false
     example: |
       A DigiD authentication response may have the following content:
       ```json
@@ -564,6 +582,11 @@ definitions:
             Must conform to E.164,
             [the international public telecommunication numbering plan](https://en.wikipedia.org/wiki/E.164),
             which requires the country calling code (e.g. +31).
+        SecureDownload:
+          type: boolean
+          description: |
+            Optional. Authentication method to be used to download the signed document(s).
+          default: false
           example: "+31123456789"
           required: true
     example: |
