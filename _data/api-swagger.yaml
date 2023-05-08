@@ -1018,7 +1018,7 @@ definitions:
       ```json
       {
         "Type": "ZealID Qualified",
-        "Issuer": "CN=ZealiD Issuing CA 2020, O=ZealiD AB, OID.2.5.4.97=SE5569724288,E=support@zealid.com, STREET=Box 3437, Stockholm, PostalCode=11156, C=SE"
+        "Issuer": "CN=ZealiD Issuing CA 2020, O=ZealiD AB, OID.2.5.4.97=SE5569724288,E=support@zealid.com, STREET=Box 3437, Stockholm, PostalCode=11156, C=SE",
         "Subject": "CN=John Alexander Doe PASNL-NP11D0011 G=John Alexander, SN=Doe, C=NL,SERIALNUMBER=PASNL-NP1D0011",
         "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
       }
