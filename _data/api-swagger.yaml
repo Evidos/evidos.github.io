@@ -323,6 +323,7 @@ definitions:
                 A unique URL per signer that provides the secure receipt download flow for the signer.
                 Available / valid if any of the authentications `SecureDownload` field is set to true.
               type: string
+              readOnly: true
             SignRequestSubject:
               type: string
               description: |
