@@ -150,6 +150,7 @@ There are a few libraries and demos available to make connecting to our API easi
 *   [PHP Demo Client](https://github.com/Evidos/signhost-phpdemoclient)
 *   [Java Client Library](https://github.com/Evidos/OndertekenenDemo-Java)
 *   [SignHost Ruby Gem](https://rubygems.org/gems/sign_host)
+*   [Python Client Library](https://github.com/foarsitter/signhost-api-python-client)
 
 ## Handy tools
 
