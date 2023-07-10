@@ -619,6 +619,7 @@ definitions:
           - SigningCertificate
           - SURFnet
           - CSC Qualified
+          - OpenID Providers
         description: |
           Type of the verification object.
           The `Type` property **must** be the first property in the json!
@@ -1052,6 +1053,28 @@ definitions:
       Please be advised, the serial number might differ from one country to another.
       For example, in the Netherlands, personal number (BSN) can not be used for privacy reasons
       and is substituted by document number such as passport number, but in other countries this poses no problem.
+
+  OpenID Providers:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      description: |
+        Adds an OpenID verification step to the signing process.
+      properties:
+        ProviderName:
+          type: string
+          description: |
+            (OPTIONAL) When value is provided, it should match the configured one for the organization.
+            If the value does not match then the full list of the organization providers will be given for the end-user to select during the verification step.
+          default: null
+    example: |
+      A OpenID verification response may have the following content:
+      ```json
+      {
+          "Type": "OpenID Providers",
+          "ProviderName": "Entrust IDaaS"
+      }
+      ```
 
   FileEntry:
     type: object
