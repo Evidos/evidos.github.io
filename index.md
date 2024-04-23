@@ -146,7 +146,8 @@ JSON results which contain a date, time or datetime property are formatted accor
 
 There are a few libraries and demos available to make connecting to our API easier.
 
-*   [.Net Client Library](https://github.com/Evidos/SignhostClientLibrary)
+*   [.Net Client Library Latest](https://github.com/Evidos/SignhostClientLibrary/tree/master)
+*   [.Net Client Library Legacy](https://github.com/Evidos/SignhostClientLibrary/tree/legacy)
 *   [PHP Demo Client](https://github.com/Evidos/signhost-phpdemoclient)
 *   [Java Client Library](https://github.com/Evidos/OndertekenenDemo-Java)
 *   [SignHost Ruby Gem](https://rubygems.org/gems/sign_host)
