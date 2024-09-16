@@ -136,7 +136,7 @@ We do recommend to use a width of 140 and a height of 70 for signature fields.
 
 The FormSets array in the Signers/SomeSignerId should reference one or more keys
 in the `FormSets` dictionary.
-A FormSet should be *unique* within a transaction.
+A FormSet and its field keys should be *unique* within a transaction.
 If you provide a duplicate formset key we will overwrite the old one with the new one. 
 
 #### Field types
