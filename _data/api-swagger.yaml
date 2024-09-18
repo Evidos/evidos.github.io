@@ -1054,6 +1054,28 @@ definitions:
       For example, in the Netherlands, personal number (BSN) can not be used for privacy reasons
       and is substituted by document number such as passport number, but in other countries this poses no problem.
 
+  Onfido:
+    allOf:
+    - $ref: '#/definitions/Verification'
+    - type: object
+      description: |
+        Adds an Onfido verification step to the signing process.
+      properties:
+        WorkflowId:
+          type: string (UUID)
+          description: |
+            (OPTIONAL) When value is provided, it should match a configured workflow for the organization.
+            If no value is provided, the default Onfido workflow will be used.
+          default: null
+    example: |
+      An Onfido verification response may have the following content:
+      ```json
+      {
+          "Type": "Onfido",
+          "WorkflowId": "dba0c424-023c-4454-b0ce-72ce625b08c0"
+      }
+      ```
+
   OpenID Providers:
     allOf:
     - $ref: '#/definitions/Verification'
