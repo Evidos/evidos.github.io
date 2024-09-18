@@ -620,6 +620,7 @@ definitions:
           - SURFnet
           - CSC Qualified
           - OpenID Providers
+          - Onfido
         description: |
           Type of the verification object.
           The `Type` property **must** be the first property in the json!
