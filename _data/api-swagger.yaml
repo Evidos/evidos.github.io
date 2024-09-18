@@ -1065,7 +1065,7 @@ definitions:
         WorkflowId:
           type: string (UUID)
           description: |
-            (OPTIONAL) When value is provided, it should match a configured workflow for the organization.
+            (OPTIONAL) When a value is provided, it should match a configured workflow for the organization.
             If no value is provided, the default Onfido workflow will be used.
           default: null
     example: |
