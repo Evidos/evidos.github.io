@@ -152,9 +152,15 @@ paths:
         Related posts [How to create a transaction with api generated fields](/api/howto/2016/10/06/api-generated-fields.html), [howto create a transaction with fillable pdf fields](/api/howto/2016/04/21/howto-create-a-transaction-with-fillable-pdf-fields.html).
 
         #### File digest header
-        When uploading a file it is possible to send a digest header along with the http request.
-        This header should contain a base64 encoded SHA checksum of the uploaded file.
-        For more information please refer to the [RFC 3230](https://www.ietf.org/rfc/rfc3230.txt) and [RFC 5843](https://www.ietf.org/rfc/rfc5843.txt) specifications.
+        When uploading a file, it is possible to send a digest header along with the HTTP request.
+        This header should contain a base64-encoded SHA checksum of the uploaded file.
+        For more information on digest headers, refer to [RFC 3230](https://www.ietf.org/rfc/rfc3230.txt) for format instructions and [RFC 5843](https://www.ietf.org/rfc/rfc5843.txt) for the supported algorithms.
+
+        #### Supported Algorithms
+
+        Currently, only SHA-256 and SHA-512 are accepted as hash algorithms.
+        While RFC 3230 originally included MD5 and SHA-1, these weaker algorithms are no longer supported for security reasons.
+        Using SHA-256 or SHA-512 ensures compliance with modern security standards.
 
         For example: `Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=`
       consumes:
