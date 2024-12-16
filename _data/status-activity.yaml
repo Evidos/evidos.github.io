@@ -26,6 +26,10 @@ activity:
     Message: Reminder sent
   - Number: 105
     Message: Document opened
+  - Number: 110
+    Message: Consumer Signing identity approved
+  - Number: 111
+    Message: Consumer Signing identity failed
   - Number: 201
     Message: Cancelled
   - Number: 202
