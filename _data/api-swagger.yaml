@@ -173,7 +173,13 @@ paths:
           required: true
           type: string
         - name: fileId
-          description: A unique identifier provided by you for the file.
+          description: |
+              A unique identifier provided by you for the file.
+              **Requirements:**
+              - Must not exceed 255 characters in length.
+              - Must not include any of the following disallowed characters:
+                  - Control characters (e.g., invisible characters like "Tab" or "Enter").
+                  - `:`, `*`, `?`, `\`, `/`, `"`, `<`, `>`, `|`, or null characters.
           in: path
           required: true
           type: string
@@ -1114,7 +1120,9 @@ definitions:
           $ref: '#/definitions/Link'
       DisplayName:
         type: string
-        description: The name of the document that was displayed to the user while signing the documents.
+        description: |
+            The name of the document that was displayed to the user while signing the documents.
+            Must be 255 characters or fewer.
 
   Link:
     type: object
