@@ -14,6 +14,8 @@ Make sure you use the same fileId for both the metadata and the file.
 Repeat for each file.
 4.  Finally start the transaction with [PUT api/transaction/{transactionId}/start](/endpoints#%23/paths//api/transaction/%7BtransactionId%7D/start/put).
 
+Check out our public Postman workspace to make a quick start with testing. [Click here to visit our Postman workspace](https://www.postman.com/dark-capsule-755015/signhost-api-public/overview).
+
 ### Server Address
 
 The REST gateway BaseURL is: https://api.signhost.com/api/
