@@ -412,6 +412,8 @@ definitions:
                     - 103
                     - 104
                     - 105
+                    - 110
+                    - 111
                     - 201
                     - 202
                     - 203
@@ -427,6 +429,8 @@ definitions:
                       * 103 -	Opened
                       * 104 -	Reminder sent
                       * 105 -	Document opened, Info property contains the file id of the opened document.
+                      * 110 -	Consumer Signing identity approved
+                      * 111 -	Consumer Signing identity failed
                       * 201 -	Cancelled
                       * 202 -	Rejected
                       * 203 -	Signed
