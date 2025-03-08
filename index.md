@@ -37,6 +37,9 @@ Please note that both your usertoken and APPKey will only be shown once.
 We cannot retrieve these keys for you, as they are encrypted on our servers.
 If you lose them, you will need to generate new keys and store them in your application.
 
+### HTTP Headers
+{% include httpheaders.html %}
+
 Below you find a HTTP request header example:
 
     Content-Type: application/json

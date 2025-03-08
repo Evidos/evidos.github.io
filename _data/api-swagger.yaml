@@ -11,18 +11,34 @@ schemes:
 produces:
   - application/json
 parameters:
-  AppkeyParam:
+  AcceptHeader:
+    name: Accept
+    in: header
+    type: string
+    default: application/vnd.signhost.v1+json
+    description: |
+      The Signhost API version number.
+      Used for endpoints that produce JSON output.
+
+securityDefinitions:
+  AppKeyHeader:
     name: Application
-    description: The APPKey
+    type: apiKey
     in: header
-    type: string
-    required: true
-  ApiKeyParam:
+    description: |
+      The appkey that is generated at signup.
+      The value must be formatted as: `APPKey {Appkey}`
+  ApiKeyHeader:
     name: Authorization
-    description: The usertoken
+    type: apiKey
     in: header
-    type: string
-    required: true
+    description: |
+      Your usertoken, can be generated in the Signhost portal.
+      The value must be formatted as: `APIKey {usertoken}`
+
+security:
+  - ApiKeyHeader: []
+    AppKeyHeader: []
 
 paths:
   '/api/transaction/{transactionId}':
@@ -32,6 +48,7 @@ paths:
 
         Please do not use any GET method for active polling, but use our [postback service](/postback/) for this end.
       parameters:
+        - $ref: '#/parameters/AcceptHeader'
         - name: transactionId
           description: ID of the transaction
           in: path
@@ -59,6 +76,7 @@ paths:
         When a transaction is in an end-state the transaction the transaction will be cleaned.
         The status of the transaction will remain the same but we will clean any uploaded documents and sensitive data as soon as possible.
       parameters:
+        - $ref: '#/parameters/AcceptHeader'
         - name: transactionId
           type: string
           description: ID of the transaction
@@ -128,6 +146,7 @@ paths:
     post:
       description: Creates a new transaction
       parameters:
+        - $ref: '#/parameters/AcceptHeader'
         - in: body
           name: transaction
           description: Transaction to be added
@@ -167,6 +186,7 @@ paths:
         - 'application/pdf'
         - 'application/json'
       parameters:
+        - $ref: '#/parameters/AcceptHeader'
         - name: transactionId
           description: ID of an existing -- not yet started -- transaction
           in: path
@@ -291,7 +311,7 @@ definitions:
                 The download url is returned in the response, and (optionally) emailed to the signer..
 
                 You **must** explicitly specify the API-version when using this feature.
-                This is done with the header: 'Accept: application/vnd.signhost.v1+json'.
+                This is done with the <a href="/##/parameters/AcceptHeader">Accept header</a>: 'Accept: application/vnd.signhost.v1+json'.
               type: array
               items:
                 $ref: '#/definitions/Authentication'
