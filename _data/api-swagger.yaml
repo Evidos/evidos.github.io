@@ -353,6 +353,41 @@ definitions:
                 Send the sign confirmation to the signer his e-mail address.
                 Default value is the value of `SendSignRequest`
               type: boolean
+            AllowDelegation:
+              description: |
+                Enables the delegation of signing the document(s).
+              default: false
+              type: boolean
+            DelegateReason:
+              description: |
+                The reason for delegating the signing of the document(s),
+                as provided by the original signer during the delegation process.
+              type: string
+              readOnly: true
+            DelegateSignerEmail:
+              description: |
+                The email address of the delegated signer,
+                provided by the original signer during the delegation process.
+              type: string
+              readOnly: true
+            DelegateSignerName:
+              description: |
+                The name of the delegated signer,
+                as provided by the original signer during the delegation process.
+              type: string
+              readOnly: true
+            SignerDelegationDateTime:
+              description: |
+                The timestamp indicating when the original signer delegated the signing of the document(s).
+              type: string
+              format: date-time
+              readOnly: true
+            DelegateSignUrl:
+              description: |
+                A unique URL that facilitates the signing flow for the delegated signer,
+                available only after the delegation has occurred.
+              type: string
+              readOnly: true
             Language:
               description: The language of the receiving user, only de-DE, en-US, es-ES, fr-FR, it-IT, pl-PL and nl-NL are allowed.
               default: nl-NL
@@ -417,6 +452,7 @@ definitions:
                     - 201
                     - 202
                     - 203
+                    - 204
                     - 301
                     - 302
                     - 303
@@ -434,6 +470,7 @@ definitions:
                       * 201 -	Cancelled
                       * 202 -	Rejected
                       * 203 -	Signed
+                      * 204 -	Signer delegated
                       * 301 -	Signed document sent
                       * 302 -	Signed document opended
                       * 303 -	Signed document downloaded

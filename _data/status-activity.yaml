@@ -36,6 +36,8 @@ activity:
     Message: Rejected
   - Number: 203
     Message: Signed
+  - Number: 204
+    Message: Signer delegated
   - Number: 301
     Message: Signed document sent
   - Number: 302
