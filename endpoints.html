@@ -65,19 +65,21 @@ permalink: /endpoints/
         <tbody>
 
         {% for p in method.parameters %}
-          <tr>
-            <td>{{ p.name }}</td>
-            <td>{{ p.in }}</td>
-            <td>{{ p.required }}</td>
-            <td>{{ p.description }}
-                {% if p.schema["$ref"] %}
-                  <a href="#{{ p.schema["$ref"] | uri_escape }}">
-                  {{ p.schema["$ref"] }}
-                  </a>
-                {% endif %}
+          {% if p["$ref"] == null %}
+            <tr>
+              <td>{{ p.name }}</td>
+              <td>{{ p.in }}</td>
+              <td>{{ p.required }}</td>
+              <td>{{ p.description }}
+                  {% if p.schema["$ref"] %}
+                    <a href="#{{ p.schema["$ref"] | uri_escape }}">
+                    {{ p.schema["$ref"] }}
+                    </a>
+                  {% endif %}
 
-          </td>
-          </tr>
+              </td>
+            </tr>
+          {% endif %}
         {% endfor %}
         </tbody>
       </table>

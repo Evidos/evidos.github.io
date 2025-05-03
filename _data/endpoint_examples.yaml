@@ -4,6 +4,7 @@ get/api/transaction/{transactionId}:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
+        -H "Accept: application/vnd.signhost.v1+json" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57
     json_response: get_api_transaction_transactionId.json
     response_information: This method returns a transaction.
@@ -27,6 +28,7 @@ post/api/transaction:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
+        -H "Accept: application/vnd.signhost.v1+json" \
       -H "Content-Type: application/json" \
       -d '{
         "Signers": [
@@ -69,6 +71,7 @@ put/api/transaction/{transactionId}/file/{fileId}:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
+        -H "Accept: application/vnd.signhost.v1+json" \
         -H "Content-Type: application/pdf" \
         -H "Digest: SHA-256=HtHRpLOZBEMnTpQS6Zn12veC4uhjtMwamfVAwmPQPmE=" \
       -XPUT \
@@ -80,6 +83,7 @@ put/api/transaction/{transactionId}/start:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
+        -H "Accept: application/vnd.signhost.v1+json" \
         https://api.signhost.com/api/transaction/b2a9aca4-cd5e-4a21-b7f7-c08a9f2b2d57/start
 delete/api/transaction/{transactionId}:
   - example:
@@ -87,6 +91,7 @@ delete/api/transaction/{transactionId}:
       curl \
         -H "Authorization: APIKey {usertoken here}" \
         -H "Application: APPKey {appkey here}" \
+        -H "Accept: application/vnd.signhost.v1+json" \
         -H "Content-Type: application/json" \
         -d '{
           "SendNotifications": true,

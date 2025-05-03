@@ -1,0 +1,39 @@
+<!-- Begin list of HTTP headers-->
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Default</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- Parameters -->
+		{% for p in site.data.api-swagger.parameters %}
+			{% for parameter in p %}
+				{% assign parameter = p[1] %}
+				{% if parameter.in == 'header' %}
+					<tr id="#/parameters/{{ p[0] }}">
+						<td>{{ parameter.name }}</td>
+						<td>{{ parameter.default }}</td>
+						<td>{{ parameter.description }}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+		<!-- security -->
+		{% for sd in site.data.api-swagger.securityDefinitions %}
+			{% for parameter in sd %}
+				{% assign parameter = p[1] %}
+				{% if parameter.in == 'header' %}
+					<tr>
+						<td>{{ parameter.name }}</td>
+						<td>{{ parameter.default }}</td>
+						<td>{{ parameter.description | markdownify}}</td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</tbody>
+</table>
+<!-- End list of all HTTP headers -->
