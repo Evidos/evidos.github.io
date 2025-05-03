@@ -1,0 +1,36 @@
+Dear customer,
+
+At Evidos we are constantly striving to improve the security of our platform.
+Right now we are working on a new improvement for our postback service.
+Our postbacks right now are secured by our Digest method, as documented [here.](https://evidos.github.io/postback/)
+This Digest method is used to make sure that the messages you receive are sent by Evidos, and that the content of these messages is still valid. Because this digest is calculated over the contents of the message, it is necessary to interpret and accept the entire message.
+For additional security, we are looking to add an authorization header to our postback service starting from the end of February.
+This will be an addition to our postback environment. The current digest and checksum validation method will be continued.
+By using the authorization header you will be able to validate or block the http messages earlier, not validating the content of the request. For example your (application) firewall could support this validation.
+Introducing this method will also include the introduction of variable ip addresses from our site, so NO IP WHITELISTING based on a fixed ip is possible anymore from the end of february.
+
+**Using this is interesting for you as a customer when**
+* you want to further secure your postback endpoint
+* you are using our server IP for whitelisting.
+
+Our server ip will become variable, we strongly advise you to not rely on whitelisting but implement this new method.
+Please note that Evidos never endorses the whitelisting of our server IP for postback validation reasons.
+
+**How will this work?**
+* In our web portal a portal administrator will be able to access a new 'developer' menu.
+* On this page you will be able to enter a Postback URL
+* On this page you will be able to enter a secret key
+* With every postback we send to your URL, we will include an authorization header.
+* This will enable you to verify that the message is sent by Evidos, without having to interpret the entire message.
+* You give us back a status 200
+* You calculate the digest and perform other internal business logic operations.
+ 
+**Important**
+Please note that when you use this new header security method, the method of specifying the PostbackUrl will change.
+* When a PostbackUrl is entered by you in the Evidos web portal, we will always use this URL.
+* When no PostbackUrl is entered in our portal, we will use the PostbackUrl you specify in your API POST Request, like it works now.
+
+**Timeline**
+This method will be available at the end of February 2021. We will share full technical documentation and a more specific timeline soon.
+This method will not replace the current postback security method, but will be an optional addition.
+
