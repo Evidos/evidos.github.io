@@ -1,0 +1,4 @@
+extends: [[vacuum:oas, recommended]]
+rules:
+  description-duplication: false
+  camel-case-properties: false

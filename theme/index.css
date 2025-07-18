@@ -1,0 +1,106 @@
+:root {
+  /**
+   Primary
+  */
+  --entrust-plum: #723988;
+  --entrust-dark-gray: #3f454f;
+
+  /**
+   Secondary 
+  */
+  --entrust-fuchsia: #af1685;
+
+  /**
+   Activity 
+  */
+  --entrust-electric-blue: #456bd1; /* Links */
+  --entrust-blue: #3655aa; /* Hover */
+
+  /**
+    Background
+   */
+  --entrust-light-gray-bg: #f2f2f5;
+  --entrust-white-bg: #ffffff;
+  --entrust-fuchsia-to-plum: linear-gradient(
+    to bottom,
+    #af1685,
+    #982989,
+    #8d2f8a,
+    #7c368a,
+    #773889,
+    #723988,
+    #723988,
+    #723988,
+    #723988,
+    #723988,
+    #723988,
+    #723988
+  );
+
+  /**
+   Dark Theme Colors 
+  */
+  --entrust-light-plum: #9b5bb3;
+  --entrust-soft-fuchsia: #d946a8;
+  --entrust-bright-blue: #6b8eff;
+  --entrust-light-gray: #e5e7eb;
+
+  /* Rspress Theme Overrides - Light Mode */
+  --rp-home-hero-name-background: var(--entrust-plum);
+
+  /* Background colors */
+  --rp-c-bg: var(--entrust-white-bg);
+  --rp-c-bg-soft: var(--entrust-light-gray-bg);
+  --rp-c-bg-mute: #f1f1f1;
+
+  /* Text colors */
+  --rp-c-text-0: #000000;
+  --rp-c-text-1: var(--entrust-dark-gray);
+  --rp-c-text-2: rgba(63, 69, 79, 0.85);
+  --rp-c-text-3: rgba(63, 69, 79, 0.33);
+  --rp-c-text-4: rgba(63, 69, 79, 0.18);
+
+  /* Link colors */
+  --rp-c-link: var(--entrust-electric-blue);
+
+  /* Brand colors */
+  --rp-c-brand: var(--entrust-plum);
+  --rp-c-brand-light: var(--entrust-electric-blue);
+  --rp-c-brand-dark: var(--entrust-electric-blue);
+  --rp-c-brand-tint: rgba(69, 107, 209, 0.16);
+
+  /* Divider colors */
+  --rp-c-divider: rgba(63, 69, 79, 0.29);
+  --rp-c-divider-light: rgba(63, 69, 79, 0.1);
+}
+
+/* Dark Theme Overrides */
+.dark {
+  --rp-home-hero-name-background: var(--entrust-light-plum);
+
+  /* Background colors */
+  --rp-c-bg: #1a1a1f;
+  --rp-c-bg-soft: #2d2433;
+  --rp-c-bg-mute: var(--entrust-dark-gray);
+  --rp-c-bg-alt: #000;
+
+  /* Text colors */
+  --rp-c-text-0: #ffffff;
+  --rp-c-text-1: var(--entrust-light-gray);
+  --rp-c-text-2: rgba(229, 231, 235, 0.8);
+  --rp-c-text-3: rgba(229, 231, 235, 0.38);
+  --rp-c-text-4: rgba(229, 231, 235, 0.18);
+
+  /* Link colors */
+  --rp-c-link: var(--entrust-bright-blue);
+
+  /* Brand colors */
+  --rp-c-brand: var(--entrust-light-plum);
+  --rp-c-brand-light: var(--entrust-electric-blue);
+  --rp-c-brand-dark: var(--entrust-electric-blue);
+  --rp-c-brand-tint: rgba(107, 142, 255, 0.16);
+
+  /* Divider colors */
+  --rp-c-divider: rgba(155, 91, 179, 0.65);
+  --rp-c-divider-light: rgba(155, 91, 179, 0.48);
+}

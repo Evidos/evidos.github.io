@@ -1,0 +1,401 @@
+---
+title: Postbacks / Webhooks
+---
+
+import { Tab, Tabs } from "@rspress/core/theme";
+import { LanguageTabs, LanguageTab } from "rspress-language-tabs";
+
+> A webhook is a lightweight, event-driven communication that automatically sends data between applications via HTTP. Triggered by specific events, webhooks automate communication between application programming interfaces (APIs) and can be used to activate workflows, such as in GitOps environments.
+
+[Source](https://www.redhat.com/en/topics/automation/what-is-a-webhook)
+
+For the purposes of this document, the terms "webhook" and "postback" are used interchangeably.
+
+## Signhost Postbacks
+
+The Signhost postback service is meant to provide realtime updates on your transactions.
+
+If you cannot implement receiving postback in your application, or if you have any questions about how to implement receiving postbacks, please contact [Support](mailto:support@signhost.com).
+
+- Signhost will perform an HTTP POST request to the postback URL that you configure.
+- Signhost only supports making postback calls to HTTPS URLs on port 443.
+- Signhost will only issue 1 postback per PostbackURL at a time, one-by-one.
+- When a postback fails, Signhost will queue all new postbacks and retry them again at a later time.
+- If the postback succeeds, Signhost will continue issuing the remaining queued postbacks.
+
+:::danger Always Return 2xx Response
+Your postback endpoint **must always** return a `2xx` HTTP status code (such as 200 OK), even if validation fails or errors occur. Failing to do so will cause Signhost to queue all subsequent postbacks, which can lead to significant delays in receiving transaction updates. See the [Recommended Postback Flow](#recommended-postback-flow) section for details.
+:::
+
+Signhost will send a postback with the most up-to-date data known at the moment when:
+
+- There is a status change in the transaction (eg. the transaction went from waiting for signer to all signed). See [Transaction Statuses](../features/status.md#transaction-statuses).
+- There is a signer activity (eg. an email was sent). See [Signer Activities](../features/status.md#signer-activities).
+- There is a receiver activity (eg. an email was sent). Receiver activities share the same status codes as [Signer Activities](../features/status.md#signer-activities), but only `Failed` (email bounce) and `SignedDocumentSent` are used for receivers.
+
+There are two ways of creating postbacks that will be used to deliver postback messages to:
+
+#### Global Postback URL (recommended)
+
+You can register a posback URL on the [Postbacks](https://portal.signhost.com/RegisteredPostbacks) page of the Signhost portal. Global Postback URLs will be used for every transaction.
+
+:::tip
+This method supports both digest security and security headers.
+:::
+
+The Postbacks page allows you to easily manage postbacks, check for any queued requests, and use security features such as the Authorization header and Checksum calculation. For more information, see the [Security](#security) section.
+
+When you create a postback URL, we automatically test if your endpoint is available by sending an empty POST request.
+
+#### Dynamic Postback URL
+
+You can dynamically specify a postback URL for a specific transaction by providing one in the `PostbackUrl` property of the transaction object when creating a transaction.
+
+This functionality is meant for separating the postbacks into different 'buckets' that would make sense for your implementation, for example to differentiate between different environments (staging, production, etc.) or different departments (sales, HR, etc.).
+
+This functionality is _not_ meant to separate postbacks per transaction as this circumvents the postback queueing system. Your business logic should be able to differentiate between postbacks based on the transaction ID. Signhost reserves the right to block postback URLs if this feature is repeatedly abused.
+
+:::warning
+Dynamic Postback URLs do NOT support digest security or security headers.
+:::
+
+If you configure both a Global Postback URL and a Dynamic Postback URL for a transaction, postbacks will be delivered to **both** endpoints. Each postback URL acts as a subscriber at different scopes:
+
+- **Dynamic Postback URL**: Transaction scope
+- **Global Postback URL**: Organization scope (applies to all API keys within the organization)
+
+This allows you to receive postbacks at multiple endpoints simultaneously if needed for your integration architecture.
+
+## Recommended Postback Flow
+
+Signhost recommends the following flow once a postback arrives at your server:
+
+1. Validate the Postback payload. See the [security validation](#security) for more details.
+   - Validate the security header
+   - Validate the body is valid JSON
+   - Validate the JSON has a Checksum property
+   - Validate the Checksum value
+1. **Always** return a 200 OK response
+   - Skip rest of the steps if the checksum validation failed.
+1. Optional: Persist postback payload to storage
+1. Continue business logic
+
+:::danger Critical Requirement
+Your endpoint **must always** return an HTTP `2xx` status code (typically 200 OK), regardless of whether validation succeeds or fails. This is a critical security precaution that prevents information about your validation process from being returned to a potentially malicious sender.
+
+**Any response other than `2xx` will cause Signhost to queue all subsequent postbacks**, leading to delays in receiving transaction updates. See [Error Handling](#error-handling) for more details.
+
+This is one of the most common issues encountered by API users. Even if your validation fails, return 200 OK and handle the invalid postback internally (e.g., log it, discard it, or alert your team).
+:::
+
+## Error Handling
+
+If your postback URL returns a non `2xx` HTTP status code, Signhost will [queue any new postbacks](#what-happens-if-your-postback-url-is-down-or-cant-accept-requests).
+
+Sighost will retry to deliver the first failed postback with an increasing interval (the first retry is within a few minutes).
+
+After 5 successive failed attempts, Signhost will send you an email which will include an attachment with the received response (if any).
+
+When Signhost receives a `2xx` HTTP status code, the postback URL will be marked as available and resume sending the queued postbacks.
+
+To guarantee performance and uptime, and make sure there is no data loss, it's possible that that may you receive the same postback twice. This can happen because our system consists of multiple instances and there is no deduplication. By checking if the postback from instance one is already sent from instance two, we would re-introduce a single point of failure. Furthermore, it is possible to receive postbacks containing statuses or activities after a signer signed, or after the entire transaction is marked as signed. Your system will have to handle these scenarios.
+
+## Statuses and Activities
+
+A postback is sent out when either the Transaction Status changes or a Signer Activity occurs. A postback contains only one transaction status however a signer object will contain the full list of all signer activities which have taken place. This can help you track all of the activities which have taken place for each individual signers in a transaction.
+
+### Transaction Status
+
+A transaction has an overall status. This is the status of the entire transaction such as signed or rejected.
+
+A full list of all Transaction Statuses can be found at the [Status & Activities](../features/status.md#transaction-statuses) page.
+
+A few scenarios around transaction status postbacks:
+
+- A transaction is created, and two documents are attached.
+  The transaction will still be in status `5` (waiting for document).
+  You need to start the transaction so Signhost knows you have finished uploading files.
+
+- A transaction with two signers is signed by the first signer.
+  The transaction status is still `10` (waiting for signer) because Signer 2 still needs to sign!
+  After end statuses such as **30** (signed), **40** (rejected), **50** (expired), **60** (cancelled), **70** (failed) you can still receive postbacks with signer activities as people might click the invite link again or download signed documents.
+
+Transaction status postbacks can be identified via a combination of the Transaction ID, Status code and Checksum.
+
+- Transaction ID: The unique ID of the Transaction
+- Status Code: The current status of the Transaction. See [Status & Activities](../features/status.md#transaction-statuses)
+- Checksum: The checksum of the postback payload
+
+:::tip
+Multiple postbacks with the same combination of these variables might arrive because you will receive multiple signer activities falling under the same transaction status.
+:::
+
+### Signer Activity
+
+In addition to the overall transaction status, for each signer that is involved in a transaction, there is a list of activities that the user has performed. This details what an individual person has done in their signing session.
+
+A full list of all the Signer Activities can be found at the [Status & Activities](../features/status.md#signer-activities) page.
+
+A Signer Activity details what interactions a specific person had with the transaction and the documents within. These activities give real-time insight in the full audit trail of what a signer has done to come to a signed document and can be used in your business logic and dashboarding to provide extra information to your users.
+
+A signer who checked a document five times but still hasn't signed, might trigger a signal for you to give them a call.
+
+A few scenarios around signer activity postbacks:
+
+- In a transaction with two signers, Signer 1 and Signer 2. Signer 1 has signed the document. Signer 2 still has yet to sign the document.
+  Your system receives a postback with signer activity status `203` (signed) for Signer 1.
+  After signing, the Signer 1 goes back to their email, and clicks the invite link again.
+  You will receive a subsequent posback with status `103` (opened) for Signer 1 but that still means Signer 1 has already signed the document.
+
+- Due to the queuing processes in both Signhost and your application, you might receive the signer activity postback for 'signed' (`203`) and 'document opened' (`105`) at the same time. That still means that Signer 1 has signed the document.
+
+Signer activities can be identified via a combination of Activity ID, Status code and CreatedDateTime.
+
+- Activity ID: Unique ID of the Activity
+- Status Code: The current status of the Activity. See [Status & Activities](../features/status.md#signer-activities)
+- CreatedDateTime: The date when the activity occurred.
+
+Your business logic can use signer activities to trigger subsequent actions. For example, if you are using the [Direct Flow](../features/signing-flows.md#signing-flows) for delivering transactions, and you want to invite Signer 2 after Signer 1 signed, you can rely on the signer activity `203` (signed) for Signer 1 to trigger sending the transaction to Signer 2. Make sure that subsequent signer activities or duplicate postbacks _after_ the first `203` (signed) do not overwrite or retrigger any invitations.
+
+:::info
+Note that the signer activity `203` (signed) only indicates that the **signer** completed the sign flow with the intent of signing the document.
+The fully signed document is only available once Signhost completes the processing of the document and the **transaction** reaches status `30` (signed).
+:::
+
+## Security
+
+Signhost offers two methods to secure postbacks:
+
+#### Authorization header
+
+This can be any string that you enter while registering the postback URL.
+
+Postbacks sent from Signhost will include this string in the `Authorization` header of the HTTP POST message. This ensures that the request came from Signhost.
+
+#### Checksum calculation
+
+This involves calculating a checksum using the transaction ID, transaction status, and a shared secret. You will receive the shared secret only once when registering your Postback URL.
+
+Postbacks sent from Signhost will include the checksum in the `Checksum` header of the HTTP POST message. This ensures that the contents of the message have not been altered or tampered with.
+
+:::note
+IP whitelisting and certificate pinning should not be used as security measures because they are not always reliable. All security measures can be found and configured on the [Postbacks](https://portal.signhost.com/RegisteredPostbacks) page in the Signhost portal.
+:::
+
+The checksum is calculated using the following formula:
+
+    Checksum = SHA1(transaction id + || + status  + | + sharedsecret)
+
+> There is a double "pipe" sign between the transaction id and the status.
+> If you are still using our legacy API - you are seeing a File object in your postback and get responses - you'll have to include the file id at this location.
+> eg `Checksum = SHA1(transaction id + | + file id + | + status  + | + sharedsecret)`
+
+The "pipe" sign ( &#124; ) is used as the delimiter between values. You may need to put the delimiters between single quotes (') or double quotes (") depending on the programming language that you will be using. The value returned by the SHA1 function is a string of 40 characters representing a hexadecimal value. How to use the SHA1 algorithm depends on your development platform. Most languages and frameworks (such as PHP, ASP.NET, Python, Java, JavaScript) have built-in implementations of the SHA1 algorithm. For other languages, such as classic ASP, Open Source implementations of the SHA1 algorithm are available online.
+
+:::warning
+Signhost strongly urges you to protect your account by only returning an HTTP 2xx response code, even if an expected security header or checksum does not match.
+Failing to do so could potentially allow attackers to probe your security measures or cause the formation of queues that could impact the performance of your system.
+:::
+
+#### Implementation Examples
+
+<LanguageTabs>
+  <LanguageTab language="Typescript">
+```typescript file="./samples/_postback-nodejs.ts"
+
+````
+  </LanguageTab>
+
+  <LanguageTab language="C#">
+```csharp file="./samples/_postback-csharp.cs"
+
+````
+
+  </LanguageTab>
+
+  <LanguageTab language="Python">
+```python file="./samples/_postback-python.py"
+
+````
+
+  </LanguageTab>
+
+  <LanguageTab language="PHP">
+```php file="./samples/_postback-php.php"
+
+````
+
+  </LanguageTab>
+
+  <LanguageTab language="Java">
+```java file="./samples/_postback-java.java"
+
+````
+
+  </LanguageTab>
+
+  <LanguageTab language="Go">
+```go file="./samples/_postback-go.go"
+
+````
+
+  </LanguageTab>
+</LanguageTabs>
+
+### What happens if your postback URL is down or can't accept requests?
+
+If the webhook URL doesn't return a `2xx` HTTP response code, that POST request will be re-attempted with a random increasing interval.
+All following postbacks will be put in a postback queue, and will wait there untill the first postback in the queue gets a `2xx` HTTP response code.
+
+If a particular POST request is unsuccessful and is being retried, no other POSTs will be attempted until the first one succeeds or is marked as failed.
+Requests are marked failed and removed from the queue after 48-72 hours of unsuccessful retry attempts.
+Subsequent postbacks are deferred until the first completes.
+Once the first postback request completes the deferred requests will be processed sequentially.
+
+### Postback Request Body Example
+
+```json
+{
+  "Id": "b10ae331-af78-4e79-a39e-5b64693b6b68",
+  "Status": 30,
+  "Files": {
+    "contract.pdf": {
+      "Links": [
+        {
+          "Rel": "file",
+          "Type": "application/pdf",
+          "Link": "https://api.signhost.com/api/transaction/b10ae331-af78-4e79-a39e-5b64693b6b68/file/contract.pdf"
+        }
+      ],
+      "DisplayName": "contract.pdf"
+    }
+  },
+  "Seal": false,
+  "Signers": [
+    {
+      "Id": "fa95495d-6c59-48e0-962a-a4552f8d6b85",
+      "Expires": "2025-11-30T06:00:00+01:00",
+      "Email": "user@example.com",
+      "Authentications": [],
+      "Verifications": [
+        {
+          "Type": "Scribble",
+          "RequireHandsignature": true,
+          "ScribbleNameFixed": true,
+          "ScribbleName": "John Doe"
+        },
+        {
+          "Type": "IPAddress",
+          "IPAddress": "203.0.113.42"
+        }
+      ],
+      "Mobile": null,
+      "Iban": null,
+      "BSN": null,
+      "RequireScribbleName": true,
+      "RequireScribble": true,
+      "RequireEmailVerification": true,
+      "RequireSmsVerification": false,
+      "RequireIdealVerification": false,
+      "RequireDigidVerification": false,
+      "RequireSurfnetVerification": false,
+      "SendSignRequest": true,
+      "SendSignConfirmation": true,
+      "SignRequestMessage": "Dear John,\n\nThis automated email is intended to inform you that one or more documents need to be signed.",
+      "DaysToRemind": 7,
+      "Language": "en",
+      "ScribbleName": "John Doe",
+      "ScribbleNameFixed": true,
+      "Reference": "",
+      "IntroText": null,
+      "ReturnUrl": null,
+      "AllowDelegation": false,
+      "Activities": [
+        {
+          "Id": "a1b2c3d4-e5f6-47a8-b9c0-d1e2f3a4b5c6",
+          "Code": 101,
+          "Activity": "InvitationSent",
+          "CreatedDateTime": "2016-06-15T23:30:00.0000000+02:00"
+        },
+        {
+          "Id": "b2c3d4e5-f6a7-48b9-c0d1-e2f3a4b5c6d7",
+          "Code": 103,
+          "Activity": "Opened",
+          "CreatedDateTime": "2016-06-15T23:33:04.1965465+02:00"
+        },
+        {
+          "Id": "c3d4e5f6-a7b8-49c0-d1e2-f3a4b5c6d7e8",
+          "Code": 105,
+          "Activity": "DocumentOpened",
+          "Info": "contract.pdf",
+          "CreatedDateTime": "2016-06-15T23:33:10.0000000+02:00"
+        },
+        {
+          "Id": "f6a7b8c9-d0e1-42f3-a4b5-c6d7e8f9a0b1",
+          "Code": 203,
+          "Activity": "Signed",
+          "CreatedDateTime": "2016-06-15T23:38:04.1965465+02:00"
+        },
+        {
+          "Id": "a7b8c9d0-e1f2-43a4-b5c6-d7e8f9a0b1c2",
+          "Code": 301,
+          "Activity": "SignedDocumentSent",
+          "CreatedDateTime": "2016-06-15T23:38:15.0000000+02:00"
+        },
+        {
+          "Id": "b8c9d0e1-f2a3-44b5-c6d7-e8f9a0b1c2d3",
+          "Code": 401,
+          "Activity": "ReceiptSent",
+          "CreatedDateTime": "2016-06-15T23:38:16.0000000+02:00"
+        },
+        {
+          "Id": "c9d0e1f2-a3b4-45c6-d7e8-f9a0b1c2d3e4",
+          "Code": 302,
+          "Activity": "SignedDocumentOpened",
+          "CreatedDateTime": "2016-06-15T23:40:30.0000000+02:00"
+        },
+        {
+          "Id": "d0e1f2a3-b4c5-46d7-e8f9-a0b1c2d3e4f5",
+          "Code": 402,
+          "Activity": "ReceiptOpened",
+          "CreatedDateTime": "2016-06-15T23:40:35.0000000+02:00"
+        },
+        {
+          "Id": "a3b4c5d6-e7f8-49a0-b1c2-d3e4f5a6b7c8",
+          "Code": 303,
+          "Activity": "SignedDocumentDownloaded",
+          "CreatedDateTime": "2016-06-15T23:42:30.0000000+02:00"
+        }
+      ],
+      "RejectReason": null,
+      "DelegateReason": null,
+      "DelegateSignerEmail": null,
+      "DelegateSignerName": null,
+      "DelegateSignUrl": null,
+      "SignUrl": "https://view.signhost.com/sign/d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
+      "SignedDateTime": "2016-06-15T23:38:10+02:00",
+      "RejectDateTime": null,
+      "CreatedDateTime": "2016-06-15T23:30:00.0000000+02:00",
+      "SignerDelegationDateTime": null,
+      "ModifiedDateTime": "2016-06-15T23:38:12.0000000+02:00",
+      "ShowUrl": "https://view.signhost.com/show/document/b10ae331-af78-4e79-a39e-5b64693b6b68?signerId=d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
+      "ReceiptUrl": "https://view.signhost.com/show/receipt/b10ae331-af78-4e79-a39e-5b64693b6b68?signerId=d3c93bd6-f1ce-48e7-8c9c-c2babfdd4034",
+      "Context": {
+        "contract.pdf": {}
+      }
+    }
+  ],
+  "Receivers": [],
+  "Reference": "",
+  "PostbackUrl": null,
+  "SignRequestMode": 2,
+  "DaysToExpire": 30,
+  "SendEmailNotifications": true,
+  "Language": "en",
+  "CreatedDateTime": "2016-06-15T23:30:00.0000000+02:00",
+  "ModifiedDateTime": "2016-06-15T23:38:16.0000000+02:00",
+  "CanceledDateTime": null,
+  "Context": null,
+  "Checksum": "b5a99e1de5b9e0e9915df09d3b819be188dae900"
+}
+```

@@ -1,0 +1,9 @@
+{
+  "extends": "@tsconfig/bun/tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": true,
+    "resolveJsonModule": true
+  },
+  "include": ["docs", "plugins", "theme", "rspress.config.ts"],
+  "exclude": ["node_modules", "docs/guide/features/samples"]
+}
