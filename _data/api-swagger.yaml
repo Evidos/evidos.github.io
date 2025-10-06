@@ -304,7 +304,6 @@ definitions:
 
                 You **must** use one of the following verifications as the last method:
                 - Consent
-                - itsme sign<sup>*</sup>
                 - PhoneNumber
                 - Scribble
                 - SigningCertificate<sup>*</sup>
@@ -668,7 +667,6 @@ definitions:
           - itsme Identification
           - PhoneNumber
           - Scribble
-          - itsme sign
           - SigningCertificate
           - SURFnet
           - CSC Qualified
@@ -681,7 +679,6 @@ definitions:
           The order in which the verifications are provided determine in which order the signer will have to perform the specified method.
           You **must** use one of the following verifications as the last method:
           - Consent
-          - itsme sign<sup>*</sup>
           - PhoneNumber
           - Scribble
           - SigningCertificate<sup>*</sup>
@@ -935,31 +932,6 @@ definitions:
             "locality": "Brussels",
             "postal_code": "1256"
           }
-      }
-      ```
-
-  itsme sign:
-    allOf:
-    - $ref: '#/definitions/Verification'
-    - type: object
-      properties:
-        Issuer:
-          type: string
-          readOnly: true
-        Subject:
-          type: string
-          readOnly: true
-        Thumbprint:
-          type: string
-          readOnly: true
-    example: |
-      An itsme sign verification response may have the following content:
-      ```json
-      {
-        "Type": "itsme sign",
-        "Issuer": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
-        "Subject": "CN=John Doe QC POC SELFSIGNED, C=NL, S=Noord-Holland, L=Haarlem, E=example@example.org, OU=IT, O=Evidos B.V.",
-        "Thumbprint": "2B31AD44D93BE1FAED6B18A23ADF1BDD4DA0ECE8"
       }
       ```
 
