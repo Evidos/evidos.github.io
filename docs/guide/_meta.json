@@ -1,0 +1,20 @@
+[
+  {
+    "type": "dir",
+    "name": "start",
+    "label": "Getting Started",
+    "collapsible": false
+  },
+  {
+    "type": "dir",
+    "name": "features",
+    "label": "Features",
+    "collapsible": false
+  },
+  {
+    "type": "dir",
+    "name": "guides",
+    "label": "Guides",
+    "collapsible": false
+  }
+]

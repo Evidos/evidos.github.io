@@ -1,0 +1,3 @@
+# The DELETE endpoint expects a body. It's too late to change it now, so we ignore this rule.
+no-request-body:
+  - $.paths['/api/transaction/{transactionId}'].delete

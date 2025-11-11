@@ -1,4 +1,17 @@
-_site
-.sass-cache
-.jekyll-metadata
-Gemfile*
+# Local
+.DS_Store
+*.local
+*.log*
+
+# Dist
+node_modules
+dist/
+doc_build/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# Generated files
+docs/openapi
