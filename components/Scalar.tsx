@@ -5,6 +5,7 @@ export const Scalar = () => (
   <ApiReferenceReact
     configuration={{
       url: "/openapi.yaml",
+      hideTestRequestButton: true,
     }}
   />
 );
