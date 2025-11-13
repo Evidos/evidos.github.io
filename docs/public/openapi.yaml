@@ -936,11 +936,29 @@ components:
             signed.
 
 
-            If you are using one of the following verification methods, you **must** use it last in the list:
+            **Critical Requirement:** You **must** use one of the following verification methods as the **last** verification in the list:
 
-            - SigningCertificate
+            - Consent
 
-            - CSC Qualified
+            - PhoneNumber
+
+            - Scribble
+
+            - SigningCertificate*
+
+            - CSC Qualified*
+
+
+            **Important Notes:**
+
+            - SigningCertificate and CSC Qualified **must always be the final verification** and cannot have any verifications after them (including each other)
+
+            - SigningCertificate and CSC Qualified **cannot be used together** in the same signer
+
+            - The other three methods (Consent, PhoneNumber, Scribble) can be preceded by other verification methods
+
+
+            Common mistake: Providing only authentication methods (e.g., iDIN) without including one of these required final verification methods.
           items:
             $ref: "#/components/schemas/SignerVerification"
         SendSignRequest:
@@ -1313,6 +1331,43 @@ components:
         These methods must be completed before the signer can sign documents.
 
         **Important:** The "Type" property is case-sensitive and must be capitalized.
+
+        **Critical Requirement:** You **must** use one of the following verification methods as the **last** verification in your verifications list:
+
+        - Consent
+        - PhoneNumber
+        - Scribble
+        - SigningCertificate*
+        - CSC Qualified*
+
+        **Special Rules for SigningCertificate and CSC Qualified:**
+
+        - These two methods **must always be the absolute final verification** - nothing can come after them
+        - SigningCertificate and CSC Qualified **cannot be used together** in the same signer's verification list
+        - If you use SigningCertificate or CSC Qualified, it must be the only item in the verifications array OR the last item after other verifications
+
+        **Rules for Consent, PhoneNumber, and Scribble:**
+
+        - These three can be used as the final verification method
+        - They can be preceded by other verification methods (e.g., iDIN, Digid, etc.)
+        - They are commonly used when you want additional verification steps before the final consent/signature
+
+        **Common Mistakes:**
+
+        - Using only authentication methods (e.g., iDIN) without a final verification method
+        - Placing verifications after SigningCertificate or CSC Qualified
+        - Using both SigningCertificate and CSC Qualified together
+
+        **Valid Examples:**
+
+        - `[Consent]` ✓
+        - `[iDIN, Consent]` ✓
+        - `[iDIN, PhoneNumber]` ✓
+        - `[SigningCertificate]` ✓
+        - `[iDIN, SigningCertificate]` ✓
+        - `[SigningCertificate, Consent]` ✗ (Nothing can come after SigningCertificate)
+        - `[SigningCertificate, CSC Qualified]` ✗ (Cannot use both together)
+        - `[iDIN]` ✗ (Missing required final verification)
 
       discriminator:
         propertyName: Type

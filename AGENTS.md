@@ -51,6 +51,7 @@ evidos.github.io/
 - **MDX files in `docs/`**: Documentation pages (supports Markdown + JSX)
 - **`docs/_nav.json`**: Determines sidebar navigation structure
 - **`docs/public/openapi.yaml`**: OpenAPI specification file
+- **`docs/openapi/**`**: **Generated files** - Do not edit directly! These are automatically generated from `docs/public/openapi.yaml`
 
 ### Theme Files
 
@@ -192,7 +193,7 @@ Automatic deployment to GitHub Pages on push to `main` branch.
 
 ### Updating OpenAPI Spec
 
-1. Edit `docs/public/openapi.yaml`
+1. Edit `docs/public/openapi.yaml` (this is the source of truth)
 2. Run `bun run lint:openapi` to validate
 3. Check `vacuum-ignore.yaml` for intentional rule exceptions
 
