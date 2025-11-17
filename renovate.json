@@ -9,10 +9,22 @@
   "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
+      "groupName": "rspress packages",
+      "matchPackagePatterns": ["^@rspress/"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "groupName": "@quobix/vacuum",
+      "matchPackageNames": ["@quobix/vacuum"],
+      "separateMajorMinor": false
+    },
+    {
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["*"]
+      "matchPackageNames": ["*"],
+      "excludePackagePatterns": ["^@rspress/"],
+      "excludePackageNames": ["@quobix/vacuum"]
     }
   ]
 }
