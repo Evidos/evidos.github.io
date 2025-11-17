@@ -1,12 +1,13 @@
 {
   "lockfileVersion": 1,
+  "configVersion": 0,
   "workspaces": {
     "": {
       "name": "rspress-beta",
       "devDependencies": {
         "@apidevtools/swagger-parser": "12.1.0",
         "@biomejs/biome": "2.3.2",
-        "@quobix/vacuum": "0.19.4",
+        "@quobix/vacuum": "0.20.2",
         "@rspress/core": "2.0.0-beta.35",
         "@rspress/plugin-llms": "2.0.0-beta.35",
         "@rspress/plugin-rss": "2.0.0-beta.35",
@@ -164,7 +165,7 @@
 
     "@phosphor-icons/core": ["@phosphor-icons/core@2.1.1", "", {}, "sha512-v4ARvrip4qBCImOE5rmPUylOEK4iiED9ZyKjcvzuezqMaiRASCHKcRIuvvxL/twvLpkfnEODCOJp5dM4eZilxQ=="],
 
-    "@quobix/vacuum": ["@quobix/vacuum@0.19.4", "", { "dependencies": { "node-fetch": "^3.2.10", "tar": "^6.1.11" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-+riEvta1fR2loK//bpdPOVs5AgE8F26RrKe6/oGjapAKVB/OOcqE88S+TSe/yeQbmj03QLi5EX3ZmrL9n0qyDg=="],
+    "@quobix/vacuum": ["@quobix/vacuum@0.20.2", "", { "dependencies": { "node-fetch": "^3.2.10", "tar": "^6.1.11" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-Wz/pRue/bBLghOj0Ac8vg4voDQdLUILU0KGkP28Bw7EJMKakMGrc2liWtM1UpKSJWargdRd3apItGo/LbzNcaQ=="],
 
     "@remix-run/router": ["@remix-run/router@1.23.0", "", {}, "sha512-O3rHJzAQKamUz1fvE0Qaw0xSFqsA/yafi2iqeE0pvdFtCO1viYx8QL6f3Ln/aCCTLxs68SLf0KPM9eSeM8yBnA=="],
 
