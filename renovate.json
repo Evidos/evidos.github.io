@@ -10,8 +10,8 @@
   "packageRules": [
     {
       "groupName": "rspress packages",
-      "matchPackagePatterns": ["^@rspress/"],
-      "matchUpdateTypes": ["minor", "patch"]
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["/^@rspress//"]
     },
     {
       "groupName": "@quobix/vacuum",
@@ -22,9 +22,7 @@
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["*"],
-      "excludePackagePatterns": ["^@rspress/"],
-      "excludePackageNames": ["@quobix/vacuum"]
+      "matchPackageNames": ["*", "!/^@rspress//", "!@quobix/vacuum"]
     }
   ]
 }
