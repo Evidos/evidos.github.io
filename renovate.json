@@ -1,9 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
-    ":rebaseStalePrs"
-  ],
+  "extends": ["config:best-practices", ":rebaseStalePrs"],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
@@ -13,33 +10,19 @@
   "packageRules": [
     {
       "groupName": "rspress packages",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "matchPackageNames": [
-        "/^@rspress//"
-      ]
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["/^@rspress//"]
     },
     {
       "groupName": "@quobix/vacuum",
-      "matchPackageNames": [
-        "@quobix/vacuum"
-      ],
+      "matchPackageNames": ["@quobix/vacuum"],
       "separateMajorMinor": false
     },
     {
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "matchPackageNames": [
-        "*",
-        "!/^@rspress//",
-        "!@quobix/vacuum"
-      ]
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": ["*", "!/^@rspress//", "!@quobix/vacuum"]
     }
   ]
 }
