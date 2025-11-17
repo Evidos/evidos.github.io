@@ -1952,7 +1952,6 @@ components:
           description: |
             The page number where this field should be placed (1-based indexing). If not specified, 
             the field may be positioned based on search criteria across all pages.
-          minimum: 1
           example: 1
         Search:
           type: [string, "null"]
@@ -1965,35 +1964,30 @@ components:
           description: |
             When using search text positioning, specifies which occurrence of the search text to use 
             if the text appears multiple times on the page or document (1-based indexing).
-          minimum: 1
           example: 1
         Top:
           type: [integer, "null"]
           description: |
             Vertical position from the top of the page in pixels or points. Used for absolute positioning 
             or as an offset when combined with search positioning.
-          minimum: 0
           example: 100
         Right:
           type: [integer, "null"]
           description: |
             Horizontal position from the right edge of the page in pixels or points. Typically used 
             for right-aligned field positioning.
-          minimum: 0
           example: 300
         Bottom:
           type: [integer, "null"]
           description: |
             Vertical position from the bottom of the page in pixels or points. Can be used instead of 
             or in combination with the top property for precise vertical positioning.
-          minimum: 0
           example: 150
         Left:
           type: [integer, "null"]
           description: |
             Horizontal position from the left edge of the page in pixels or points. The most common 
             way to specify horizontal field positioning.
-          minimum: 0
           example: 50
         Width:
           type: [integer, "null"]
@@ -2002,7 +1996,6 @@ components:
             occupies and affects text wrapping for text fields.
 
             For signature and seal fields we suggest a width of 140.
-          minimum: 1
           example: 200
         Height:
           type: [integer, "null"]
@@ -2011,7 +2004,6 @@ components:
             occupies and affects text size and line spacing for text fields.
 
             For signature and seal fields we suggest a height of 70.
-          minimum: 1
           example: 50
     TransactionDeleteOptions:
       type: object
