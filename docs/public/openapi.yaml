@@ -1106,8 +1106,18 @@ components:
           example: "Please review and sign the attached employment contract."
         DaysToRemind:
           type: integer
-          description: Days between reminder emails (0 = no reminders)
+          description: |
+            Number of days between automatic reminder emails sent to this signer.
+
+            - Set to `-1` to disable reminders entirely for this signer
+            - Set to `0` to use your organization's default reminder interval
+            - Set to a positive number (e.g., `3`, `7`) to send reminders every N days
+
+            **Note:** Reminders are only sent if `SendSignRequest` is `true` and the signer hasn't completed signing yet.
+          format: int32
+          minimum: -1
           example: 3
+          default: 7
         Language:
           type: string
           description: Language for signer interface and emails
