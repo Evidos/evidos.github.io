@@ -944,18 +944,14 @@ components:
 
             - Scribble
 
-            - SigningCertificate*
-
             - CSC Qualified*
 
 
             **Important Notes:**
 
-            - SigningCertificate and CSC Qualified **must always be the final verification** and cannot have any verifications after them (including each other)
+            - CSC Qualified **must always be the final verification** if used
 
-            - SigningCertificate and CSC Qualified **cannot be used together** in the same signer
-
-            - The other three methods (Consent, PhoneNumber, Scribble) can be preceded by other verification methods
+            - The other three methods (Consent, PhoneNumber, Scribble) can be succeeded by other verification methods
 
 
             Common mistake: Providing only authentication methods (e.g., iDIN) without including one of these required final verification methods.
@@ -1347,36 +1343,29 @@ components:
         - Consent
         - PhoneNumber
         - Scribble
-        - SigningCertificate*
         - CSC Qualified*
 
-        **Special Rules for SigningCertificate and CSC Qualified:**
+        **Rules for CSC Qualified:**
 
-        - These two methods **must always be the absolute final verification** - nothing can come after them
-        - SigningCertificate and CSC Qualified **cannot be used together** in the same signer's verification list
-        - If you use SigningCertificate or CSC Qualified, it must be the only item in the verifications array OR the last item after other verifications
+        - This method **must always be the absolute final verification** - nothing can come after it
 
         **Rules for Consent, PhoneNumber, and Scribble:**
 
         - These three can be used as the final verification method
-        - They can be preceded by other verification methods (e.g., iDIN, Digid, etc.)
         - They are commonly used when you want additional verification steps before the final consent/signature
 
         **Common Mistakes:**
 
         - Using only authentication methods (e.g., iDIN) without a final verification method
-        - Placing verifications after SigningCertificate or CSC Qualified
-        - Using both SigningCertificate and CSC Qualified together
+        - Placing verifications after CSC Qualified
 
         **Valid Examples:**
 
         - `[Consent]` ✓
         - `[iDIN, Consent]` ✓
         - `[iDIN, PhoneNumber]` ✓
-        - `[SigningCertificate]` ✓
-        - `[iDIN, SigningCertificate]` ✓
-        - `[SigningCertificate, Consent]` ✗ (Nothing can come after SigningCertificate)
-        - `[SigningCertificate, CSC Qualified]` ✗ (Cannot use both together)
+        - `[iDIN, CSC Qualified]` ✓
+        - `[CSC Qualified, Consent]` ✗ (Nothing can come after CSC Qualified)
         - `[iDIN]` ✗ (Missing required final verification)
 
       discriminator:
@@ -1394,7 +1383,6 @@ components:
         - $ref: "#/components/schemas/SignerEidasLoginVerification"
         - $ref: "#/components/schemas/SignerItsmeIdentificationVerification"
         - $ref: "#/components/schemas/SignerConsentVerification"
-        - $ref: "#/components/schemas/SignerSigningCertificateVerification"
         - $ref: "#/components/schemas/SignerCscVerification"
         - $ref: "#/components/schemas/SignerOidcIdentification"
         - $ref: "#/components/schemas/SignerOnfidoIdentification"
@@ -1614,28 +1602,6 @@ components:
         Type:
           type: string
           enum: [Consent]
-    SignerSigningCertificateVerification:
-      type: object
-      description: Digital signing certificate verification
-      properties:
-        Type:
-          type: string
-          enum: [SigningCertificate]
-        Issuer:
-          type: string
-          description: Certificate issuer
-          example: "Certificate Authority"
-          readOnly: true
-        Subject:
-          type: string
-          description: Certificate subject
-          example: "CN=John Doe"
-          readOnly: true
-        Thumbprint:
-          type: string
-          description: Certificate thumbprint
-          example: "1234567890abcdef"
-          readOnly: true
     SignerCscVerification:
       type: object
       description: Cloud Signature Consortium (CSC) verification
