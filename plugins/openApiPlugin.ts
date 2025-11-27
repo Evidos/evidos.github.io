@@ -744,6 +744,23 @@ ${schemaObj.enum ? `**Possible values:** ${(schemaObj.enum as unknown[]).map((v)
 
 ${schemaObj.example ? `**Example:**\n\n\`\`\`json\n${JSON.stringify(schemaObj.example, null, 2)}\n\`\`\`\n` : ""}
 
+${
+  schemaObj.examples
+    ? `**Examples:**\n\n${Object.entries(
+        schemaObj.examples as Record<string, unknown>,
+      )
+        .map(([, ex]) => {
+          const exampleObj = ex as Record<string, unknown>;
+          const description = exampleObj.description
+            ? `*${exampleObj.description}*\n\n`
+            : "";
+          const value = JSON.stringify(exampleObj.value || ex, null, 2);
+          return `${description}\`\`\`json\n${value}\n\`\`\``;
+        })
+        .join("\n\n")}\n`
+    : ""
+}
+
 `.trim();
 }
 
