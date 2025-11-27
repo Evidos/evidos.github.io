@@ -1973,15 +1973,61 @@ components:
           example: true
     ErrorResponse:
       type: object
-      description: Error response object containing error details
+      description: |
+        Error response object based on RFC 7807 Problem Details for HTTP APIs.
+        See https://datatracker.ietf.org/doc/html/rfc7807 for details.
+
+        **Response Format:** A response is either in the new RFC 7807 Problem Details format OR the legacy Message format, but never both.
+
+        - **New Format (RFC 7807):** Contains the `type` property and standard problem detail properties (`title`, `detail`, `status`). May also include additional extension members.
+        - **Legacy Format:** Contains only the `Message` property. This format is used for some existing error responses during our transition to full RFC 7807 compliance.
+
+        **Usage:** Check if the `type` property is present. If it exists, the response is in RFC 7807 format. If `type` is absent, fall back to reading the `Message` property.
       properties:
+        type:
+          type: string
+          format: uri
+          description: A URI reference identifying the problem type. This property is always present in RFC 7807 responses.
+          example: "https://api.signhost.com/errors/invalid-request"
+        title:
+          type: string
+          description: A short, human-readable summary of the problem
+          example: "Invalid Request"
+        detail:
+          type: string
+          description: A human-readable explanation specific to this occurrence of the problem
+          example: "The request body contains invalid JSON"
+        status:
+          type: integer
+          description: The HTTP status code
+          example: 400
+        instance:
+          type: string
+          format: uri
+          description: A URI reference that identifies the specific occurrence of the problem
+          example: "https://api.signhost.com/errors/12345"
         Message:
           type: string
-          description: Human-readable error message
-      required:
-        - Message
-      example:
-        Message: "An error occurred while processing the request."
+          description: |
+            **Deprecated (Legacy Format Only):** Contains the error message in the old response format.
+            This property appears alone in legacy error responses and is mutually exclusive with the RFC 7807 properties above.
+            Will be phased out as we complete our transition to RFC 7807.
+          example: "An error occurred while processing the request."
+      additionalProperties: true
+      examples:
+        ProblemDetailsFormat:
+          description: Modern RFC 7807 Problem Details format
+          value:
+            type: "https://api.signhost.com/errors/validation-failed"
+            title: "Validation Failed"
+            detail: "One or more validation errors occurred"
+            status: 400
+            errors:
+              $: ["Some validation error"]
+        LegacyMessageFormat:
+          description: Legacy error response format
+          value:
+            Message: "An error occurred while processing the request."
   securitySchemes:
     apiKey:
       name: Authorization
