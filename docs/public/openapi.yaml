@@ -1204,18 +1204,16 @@ components:
           type: string
           format: uri
           description: >
-            A unique URL per signer that provides the secure download flow
-            for the signer.
+            A unique URL per signer that provides the signed document(s) download flow for the signer.
 
-            Available if any of the authentications `SecureDownload` field is set to true.
+            Documents can only be retrieved from this URL once the transaction has reached status 30 (completed).
         ReceiptUrl:
           type: string
           format: uri
           description: >
-            A unique URL per signer that provides the receipt download flow
-            for the signer.
+            A unique URL per signer that provides the receipt download flow for the signer.
 
-            Available if any of the authentications `SecureDownload` field is set to true.
+            The receipt can only be retrieved from this URL once the transaction has reached status 30 (completed).
     CreateReceiverRequest:
       type: object
       description: Receiver configuration for getting copies of signed documents
