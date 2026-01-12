@@ -1175,6 +1175,13 @@ components:
           format: uri
           description: URL for delegate to sign
           example: "https://view.signhost.com/sign/delegate123"
+        SignUrl:
+          type: string
+          format: uri
+          description: >
+            A unique URL for this signer to access the signing interface.
+            This URL is generated after the transaction is created and can be used to direct the signer to sign the document(s).
+          example: "https://view.signhost.com/sign/abc123"
         SignedDateTime:
           type: string
           format: date-time
