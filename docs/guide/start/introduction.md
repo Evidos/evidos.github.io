@@ -45,6 +45,7 @@ These libraries are built and maintained by Signhost:
 
 These libraries are built and maintained by the community:
 
+- [PHP - Laravel library (by NoardCode)](https://github.com/noardcode/laravel-signhost)
 - [Python Client Library](https://github.com/foarsitter/signhost-api-python-client)
 
 ### Postman Workspace
