@@ -71,7 +71,7 @@ POST /api/transaction
 **Upload the document**
 
 ```http
-PUT /api/transaction/{transactionId}/file/Report.pdf
+PUT /api/transaction/{transactionId}/file/file.pdf
 Authorization: APIKey {usertoken}
 Application: APPKey {appkey}
 Content-Type: application/pdf
@@ -92,7 +92,7 @@ Once the transaction is started, Signhost will seal the document and mark the tr
 
 ### Retrieving sealed documents and receipt
 
-Use `GET /api/transaction/{transactionId}/file/{fileId}` to download the sealed PDF once the transaction reaches an end status (for example, status `30` for completed).
+Use `GET /api/transaction/{transactionId}/file/file.pdf` to download the sealed PDF once the transaction reaches an end status (for example, status `30` for completed).
 
 Use `GET /api/file/receipt/{transactionId}` to retrieve the evidential receipt that contains the full audit trail, including the information that a seal was applied to the document.
 
