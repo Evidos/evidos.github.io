@@ -132,6 +132,6 @@ Combine signer signatures with an organizational seal to demonstrate that both i
 
 ### Related resources
 
-- [Transaction endpoints](/endpoints/)
-- [Statuses & Activities](/status-activity/)
-- [Postback service](/postback/)
+- [Transaction endpoints](../../endpoints/)
+- [Statuses & Activities](../../status-activity/)
+- [Postback service](../../postback/)
