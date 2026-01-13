@@ -3,6 +3,7 @@
   "formsets",
   "postbacks",
   "return-url",
+  "sealing",
   "signature-location",
   "signing-flows",
   "status"
