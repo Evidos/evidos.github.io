@@ -133,5 +133,5 @@ Combine signer signatures with an organizational seal to demonstrate that both i
 ### Related resources
 
 - [Transaction endpoints](../../openapi/)
-- [Statuses & Activities](/status/)
-- [Postback service](/postbacks/)
+- [Statuses & Activities](./status/)
+- [Postback service](./postbacks/)
