@@ -58,6 +58,7 @@ paths:
 
         **Important Notes:**
         - If `Seal` is false, at least one signer must be provided
+        - Providing no signers with `Seal` true allows for automatic sealing.
         - Signers with `AllowDelegation` enabled cannot have authentications
         - If any signer has `SendSignRequest` enabled, `SignRequestMode` defaults to 2
         - Authentication array requires explicit versioning header (Accept: application/json;version=1)
