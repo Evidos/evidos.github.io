@@ -11,7 +11,7 @@ To authenticate your requests, you must add two HTTP headers to every request.
 
 #### Application Key (APPKey)
 
-The application key identifies your application you are integrating from. You can generate your APPKey on the [ApplicationKey](https://portal.signhost.com/ApplicationKey) page of the Signhost portal.
+The application key identifies your application you are integrating from. You can generate your APPKey on the [ApplicationKey](https://portal.signhost.com/v2/developer/application-keys) page of the Signhost portal.
 
 #### User Token (APIKey)
 

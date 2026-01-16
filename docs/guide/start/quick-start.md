@@ -16,7 +16,7 @@ Before you begin, you'll need:
 ### 1.1 Generate Application Key
 
 1. Log in to the [Signhost Portal](https://portal.signhost.com)
-2. Navigate to the [Application Key](https://portal.signhost.com/ApplicationKey) page
+2. Navigate to the [Application Key](https://portal.signhost.com/v2/developer/application-keys) page
 3. Click "Generate New Application Key"
 4. Copy and securely store your **Application Key**
 
