@@ -3,18 +3,21 @@
     "type": "dir",
     "name": "start",
     "label": "Getting Started",
-    "collapsible": false
+    "collapsible": true,
+    "collapsed": false
   },
   {
     "type": "dir",
     "name": "features",
     "label": "Features",
-    "collapsible": false
+    "collapsible": true,
+    "collapsed": false
   },
   {
     "type": "dir",
     "name": "guides",
     "label": "Guides",
-    "collapsible": false
+    "collapsible": true,
+    "collapsed": false
   }
 ]
