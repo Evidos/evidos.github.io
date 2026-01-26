@@ -1655,6 +1655,8 @@ components:
     SignerOnfidoIdentification:
       type: object
       description: Onfido identity verification
+      required:
+        - Type
       properties:
         Type:
           type: string
@@ -1662,7 +1664,8 @@ components:
         WorkflowId:
           type: string
           format: uuid
-          description: Onfido workflow identifier
+          description: |
+            Onfido workflow identifier. Provide this when linking to a custom Entrust (formary Onfido) Studio environment. Omit this to use Signhost's standard Studio configuration.
           example: "550e8400-e29b-41d4-a716-446655440000"
         WorkflowRunId:
           type: string
