@@ -1,6 +1,5 @@
 import { join } from "node:path";
 import { defineConfig } from "@rspress/core";
-import { pluginLlms } from "@rspress/plugin-llms";
 import { pluginRss } from "@rspress/plugin-rss";
 import { pluginSitemap } from "@rspress/plugin-sitemap";
 import { pluginOpenGraph } from "rsbuild-plugin-open-graph";
@@ -13,6 +12,7 @@ const ogImageUrl = new URL(PUBLISH_URL);
 ogImageUrl.pathname = "/og_image.png";
 
 export default defineConfig({
+  llms: true,
   builderConfig: {
     plugins: [
       pluginOpenGraph({
@@ -40,7 +40,6 @@ export default defineConfig({
   plugins: [
     pluginOpenApi({ clean: true }),
     pluginFontFigtree(),
-    pluginLlms(),
     pluginSitemap({ siteUrl: PUBLISH_URL }),
     pluginRss({
       siteUrl: PUBLISH_URL,

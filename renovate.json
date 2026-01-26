@@ -1,12 +1,15 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", ":rebaseStalePrs"],
+  "configMigration": true,
+  "extends": [
+    "config:best-practices",
+    "security:minimumReleaseAgeNpm",
+    ":automergeAll"
+  ],
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true
   },
-  "minimumReleaseAge": "3 days",
-  "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
       "groupName": "rspress packages",
@@ -24,5 +27,6 @@
       "matchUpdateTypes": ["minor", "patch"],
       "matchPackageNames": ["*", "!/^@rspress//", "!@quobix/vacuum"]
     }
-  ]
+  ],
+  "osvVulnerabilityAlerts": true
 }

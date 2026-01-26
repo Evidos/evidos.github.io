@@ -1,12 +1,11 @@
 [
   {
     "text": "Docs",
-    "link": "guide/start/introduction",
-    "position": "left"
+    "link": "/guide/start/introduction",
+    "activeMatch": "^/guide/"
   },
   {
     "text": "API",
-    "position": "left",
     "items": [
       {
         "text": "Reference",
@@ -20,8 +19,7 @@
   },
   {
     "text": "About",
-    "link": "/about",
-    "position": "left"
+    "link": "/about"
   },
   {
     "text": "Blog",
