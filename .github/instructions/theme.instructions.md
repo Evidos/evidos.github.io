@@ -29,13 +29,6 @@ Use these CSS custom properties defined in `theme/index.css`:
 - `--entrust-light-gray-bg`: #F2F2F5
 - `--entrust-white-bg`: #FFFFFF
 
-**Dark Theme Colors:**
-
-- `--entrust-light-plum`: #9B5BB3
-- `--entrust-soft-fuchsia`: #D946A8
-- `--entrust-bright-blue`: #6B8EFF
-- `--entrust-light-gray`: #E5E7EB
-
 ## Typography
 
 ### Headings

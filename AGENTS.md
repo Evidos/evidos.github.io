@@ -139,7 +139,6 @@ bun run preview
 
 - Use CSS custom properties defined in `theme/index.css`
 - Follow Entrust brand guidelines (see `.github/instructions/theme.instructions.md`)
-- Support both light and dark themes using `.dark` class selector
 - Maintain accessibility (WCAG AA contrast ratios)
 
 ### Code Samples
@@ -188,8 +187,7 @@ Automatic deployment to GitHub Pages on push to `main` branch.
 
 1. Read `.github/instructions/theme.instructions.md` first
 2. Use CSS custom properties, don't hardcode colors
-3. Support both light and dark modes
-4. Test accessibility (contrast ratios)
+3. Maintain accessibility (WCAG AA contrast ratios)
 
 ### Updating OpenAPI Spec
 
