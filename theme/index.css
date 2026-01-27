@@ -32,12 +32,6 @@
     #723988,
     #723988
   );
-
-  /* Dark Theme Colors */
-  --entrust-light-plum: #9b5bb3;
-  --entrust-soft-fuchsia: #d946a8;
-  --entrust-bright-blue: #6b8eff;
-  --entrust-light-gray: #e5e7eb;
 }
 
 /**
@@ -53,9 +47,9 @@
 }
 
 /**
- * Rspress Light Mode Theme
+ * Rspress Theme
  */
-:where(html:not(.rp-dark)) {
+:root {
   /* Background Colors */
   --rp-c-bg: var(--entrust-white-bg);
   --rp-c-bg-soft: var(--entrust-light-gray-bg);
@@ -110,64 +104,6 @@
 
   /* Homepage Feature */
   --rp-home-feature-bg: linear-gradient(135deg, #fff, #f9f9f980);
-}
-
-/**
- * Rspress Dark Mode Theme
- */
-:where(html.rp-dark) {
-  /* Background Colors */
-  --rp-c-bg: #1a1a1f;
-  --rp-c-bg-soft: #2d2433;
-  --rp-c-bg-mute: var(--entrust-dark-gray);
-  --rp-c-bg-alt: #000000;
-
-  /* Divider Colors */
-  --rp-c-divider: rgba(155, 91, 179, 0.65);
-  --rp-c-divider-light: rgba(155, 91, 179, 0.48);
-
-  /* Text Colors */
-  --rp-c-text-0: #ffffff;
-  --rp-c-text-1: var(--entrust-light-gray);
-  --rp-c-text-2: rgba(229, 231, 235, 0.8);
-  --rp-c-text-3: rgba(229, 231, 235, 0.38);
-  --rp-c-text-4: rgba(229, 231, 235, 0.18);
-
-  /* Inline Code */
-  --rp-c-text-code: #c9def1;
-  --rp-c-text-code-bg: rgb(153 161 179 / 0.1);
-
-  /* Link Colors */
-  --rp-c-link: var(--entrust-bright-blue);
-
-  /* Code Block */
-  --rp-code-title-bg: #191919;
-  --rp-code-block-color: rgb(229, 231, 235);
-  --rp-code-block-bg: var(--rp-c-bg);
-  --rp-code-block-border: 1px solid var(--rp-c-divider-light);
-
-  /* Homepage Hero */
-  --rp-home-hero-title-color: transparent;
-  --rp-home-hero-title-bg: var(--entrust-light-plum);
-
-  /* Homepage Background */
-  --rp-home-background-bg:
-    radial-gradient(
-      42.12% 56.13% at 100% 0%,
-      #0c1d48 0%,
-      rgba(155, 91, 179, 0.2) 0%,
-      rgba(18, 18, 18, 0) 100%
-    ),
-    radial-gradient(
-      42.01% 79.63% at 52.86% 0%,
-      rgba(175, 22, 133, 0.15) 0%,
-      rgba(18, 18, 18, 0) 100%
-    ),
-    radial-gradient(
-      79.67% 58.09% at 0% 0%,
-      rgba(114, 57, 136, 0.15) 0%,
-      rgba(18, 18, 18, 0) 100%
-    );
 }
 
 html .rp-button--brand {

@@ -29,10 +29,7 @@ export default defineConfig({
   title: "Signhost Developer Hub",
   description: "Entrust Signhost Developer Hub",
   icon: "/favicon.png",
-  logo: {
-    light: "/signhost.svg",
-    dark: "/signhost-reverse.svg",
-  },
+  logo: "/signhost.svg",
   globalStyles: join(__dirname, "theme", "index.css"),
   route: {
     cleanUrls: true,
@@ -57,6 +54,7 @@ export default defineConfig({
     }),
   ],
   themeConfig: {
+    darkMode: false,
     footer: {
       message: `© ${new Date().getFullYear()} Entrust Corporation. All Rights Reserved.`,
     },
