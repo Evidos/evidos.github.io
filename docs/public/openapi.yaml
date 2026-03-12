@@ -12,7 +12,7 @@ info:
 
     - Create and configure signing transactions with multiple signers and receivers
 
-    - Support for various authentication methods (DigiD, SMS, eIDAS, itsme, etc.)
+    - Support for various authentication methods (DigiD, SMS, itsme, etc.)
 
     - Multiple verification options including digital certificates and biometric verification
 
@@ -1386,7 +1386,6 @@ components:
         - $ref: "#/components/schemas/SignerIDINVerification"
         - $ref: "#/components/schemas/SignerIPAddressVerification"
         - $ref: "#/components/schemas/SignerEHerkenningVerification"
-        - $ref: "#/components/schemas/SignerEidasLoginVerification"
         - $ref: "#/components/schemas/SignerItsmeIdentificationVerification"
         - $ref: "#/components/schemas/SignerConsentVerification"
         - $ref: "#/components/schemas/SignerCscVerification"
@@ -1547,44 +1546,6 @@ components:
           type: string
           description: KvK (Chamber of Commerce) number
           example: "12345678"
-    SignerEidasLoginVerification:
-      type: object
-      description: eIDAS electronic identification verification
-      properties:
-        Type:
-          type: string
-          enum: [eIDAS Login]
-        Uid:
-          type: string
-          description: eIDAS user identifier
-          example: "eidas-uid-123"
-          readOnly: true
-        Level:
-          type: string
-          description: eIDAS assurance level
-          example: "substantial"
-          readOnly: true
-        FirstName:
-          type: string
-          description: First name from eIDAS
-          example: "John"
-          readOnly: true
-        LastName:
-          type: string
-          description: Last name from eIDAS
-          example: "Doe"
-          readOnly: true
-        DateOfBirth:
-          type: string
-          description: Date of birth from eIDAS
-          example: "1985-03-15"
-          readOnly: true
-        Attributes:
-          type: object
-          description: Raw eIDAS attributes (availability not guaranteed)
-          readOnly: true
-          additionalProperties:
-            type: string
     SignerItsmeIdentificationVerification:
       type: object
       description: itsme identification verification
