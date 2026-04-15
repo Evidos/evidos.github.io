@@ -7,7 +7,7 @@
       "devDependencies": {
         "@apidevtools/swagger-parser": "12.1.0",
         "@biomejs/biome": "2.4.11",
-        "@quobix/vacuum": "0.25.6",
+        "@quobix/vacuum": "0.25.8",
         "@rspress/core": "2.0.9",
         "@rspress/plugin-rss": "2.0.9",
         "@rspress/plugin-sitemap": "2.0.9",
@@ -196,7 +196,7 @@
 
     "@protobufjs/utf8": ["@protobufjs/utf8@1.1.0", "", {}, "sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw=="],
 
-    "@quobix/vacuum": ["@quobix/vacuum@0.25.6", "", { "dependencies": { "https-proxy-agent": "^7.0.6", "node-fetch": "^3.3.2", "tar": "^7.5.13" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-jiRpS+6+dNht/sWuvbg/NssZhVaSdvfW+a2JQgv5Ep5CwVmewFPy96RhsBbpHKxh038apx9e6skOAUGWz2OfLg=="],
+    "@quobix/vacuum": ["@quobix/vacuum@0.25.8", "", { "dependencies": { "https-proxy-agent": "^7.0.6", "node-fetch": "^3.3.2", "tar": "^7.5.13" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-uzYXj87KjBonfBm+WdgrHjomqFNJ0m1rNo6VrXUVFdqJ4pxzvmSRT33SEr3zBN8hSGlUhPXM/413MqC9q4wQRw=="],
 
     "@replit/codemirror-css-color-picker": ["@replit/codemirror-css-color-picker@6.3.0", "", { "peerDependencies": { "@codemirror/language": "^6.0.0", "@codemirror/state": "^6.0.0", "@codemirror/view": "^6.0.0" } }, "sha512-19biDANghUm7Fz7L1SNMIhK48tagaWuCOHj4oPPxc7hxPGkTVY2lU/jVZ8tsbTKQPVG7BO2CBDzs7CBwb20t4A=="],
 
