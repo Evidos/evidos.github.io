@@ -31,7 +31,7 @@
     "rsbuild-plugin-open-graph": "1.1.2",
     "rspress-language-tabs": "1.1.0",
     "rspress-plugin-font-figtree": "1.0.1",
-    "typescript": "6.0.2"
+    "typescript": "6.0.3"
   },
   "trustedDependencies": [
     "@quobix/vacuum"
