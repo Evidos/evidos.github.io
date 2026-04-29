@@ -48,7 +48,7 @@ POST /api/transaction
 }
 ```
 
-In this example, the signer will first sign the document, and then Signhost will apply a seal on behalf of your organization.
+In this example, Signhost will apply a seal on behalf of your organization, then the signer will sign the document.
 
 ### Creating a seal-only transaction
 
