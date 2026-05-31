@@ -17,7 +17,7 @@
         "micromark": "4.0.2",
         "openapi-types": "12.1.3",
         "prettier": "3.8.3",
-        "rsbuild-plugin-open-graph": "1.1.2",
+        "rsbuild-plugin-open-graph": "1.1.3",
         "rspress-language-tabs": "1.1.0",
         "rspress-plugin-font-figtree": "1.0.1",
         "typescript": "6.0.3",
@@ -772,7 +772,7 @@
 
     "reserved-identifiers": ["reserved-identifiers@1.2.0", "", {}, "sha512-yE7KUfFvaBFzGPs5H3Ops1RevfUEsDc5Iz65rOwWg4lE8HJSYtle77uul3+573457oHvBKuHYDl/xqUkKpEEdw=="],
 
-    "rsbuild-plugin-open-graph": ["rsbuild-plugin-open-graph@1.1.2", "", { "peerDependencies": { "@rsbuild/core": "^1.0.0 || ^2.0.0-0" }, "optionalPeers": ["@rsbuild/core"] }, "sha512-CNVtaoiS+tcFP8ge7nlnlgnynnGnHdRnFujYBDMeYtw9hYB7mFTzF4Yr3K+q0LQjYHqeNIeeApmC0LCUXqIulg=="],
+    "rsbuild-plugin-open-graph": ["rsbuild-plugin-open-graph@1.1.3", "", { "peerDependencies": { "@rsbuild/core": "^1.0.0 || ^2.0.0-0" }, "optionalPeers": ["@rsbuild/core"] }, "sha512-jIOxWCOgYnlONDcxj4LzGpQY5h3B9Apl+e0ieJeAs6YgMvbZ948dsPW5sx8WLj0DuyI3XR8yDNU5P34XXvwXgQ=="],
 
     "rspress-language-tabs": ["rspress-language-tabs@1.1.0", "", { "dependencies": { "simple-icons": "^15.18.0" }, "peerDependencies": { "@rspress/core": "^2.0.0", "react": "^18.0.0 || ^19.0.0" } }, "sha512-v/kndtsG0CRRqYYjIn1RlBfVnttY069+kgGt0j1xuTuX2JX/AvHY6V9aLQhAKLrUyx5eMHc1SGPfXgt6IYlZ9w=="],
 
