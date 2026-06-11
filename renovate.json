@@ -25,7 +25,7 @@
       "groupName": "all non-major dependencies",
       "groupSlug": "all-minor-patch",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": ["*", "!/^@rspress//", "!@quobix/vacuum"]
+      "matchPackageNames": ["!/^@rspress//", "!@quobix/vacuum"]
     }
   ],
   "osvVulnerabilityAlerts": true
