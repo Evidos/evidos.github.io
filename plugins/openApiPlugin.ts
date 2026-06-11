@@ -1026,7 +1026,7 @@ function renderParentTypes(
   modelName: string,
   discriminatorMap?: Map<string, string[]>,
 ): string {
-  if (!discriminatorMap || !discriminatorMap.has(modelName)) {
+  if (!discriminatorMap?.has(modelName)) {
     return "";
   }
 
