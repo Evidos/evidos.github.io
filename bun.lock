@@ -7,7 +7,7 @@
       "devDependencies": {
         "@apidevtools/swagger-parser": "12.1.0",
         "@biomejs/biome": "2.5.1",
-        "@quobix/vacuum": "0.29.5",
+        "@quobix/vacuum": "0.29.6",
         "@rspress/core": "2.0.15",
         "@rspress/plugin-rss": "2.0.15",
         "@rspress/plugin-sitemap": "2.0.15",
@@ -152,7 +152,7 @@
 
     "@phosphor-icons/core": ["@phosphor-icons/core@2.1.1", "", {}, "sha512-v4ARvrip4qBCImOE5rmPUylOEK4iiED9ZyKjcvzuezqMaiRASCHKcRIuvvxL/twvLpkfnEODCOJp5dM4eZilxQ=="],
 
-    "@quobix/vacuum": ["@quobix/vacuum@0.29.5", "", { "dependencies": { "https-proxy-agent": "^9.0.0", "tar": "^7.5.16" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-nwCMd4JMAZIkFyHYD1xJQNKQg4acxVOIfb5rbK+vDzVcE9oqrdaVDN3nSIg4LAunIQZhiY9cNGeFN1JeAYaOsg=="],
+    "@quobix/vacuum": ["@quobix/vacuum@0.29.6", "", { "dependencies": { "https-proxy-agent": "^9.0.0", "tar": "^7.5.16" }, "bin": { "vacuum": "bin/vacuum.js" } }, "sha512-B79bkDCRvMzx8Q0TlGyiMDEG1gAt0hTxjll7Jqknk40OtVjgE8dPdv7mTXe/0+EwlbmIQo7MnZaDY2F1HJp11Q=="],
 
     "@replit/codemirror-css-color-picker": ["@replit/codemirror-css-color-picker@6.3.0", "", { "peerDependencies": { "@codemirror/language": "^6.0.0", "@codemirror/state": "^6.0.0", "@codemirror/view": "^6.0.0" } }, "sha512-19biDANghUm7Fz7L1SNMIhK48tagaWuCOHj4oPPxc7hxPGkTVY2lU/jVZ8tsbTKQPVG7BO2CBDzs7CBwb20t4A=="],
 
