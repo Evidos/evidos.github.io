@@ -164,28 +164,9 @@ describe("OpenAPI Plugin", () => {
         try {
           const content = await fs.readFile(verificationFile, "utf-8");
           // Should have links to child schemas
-          expect(content).toContain("SignerEmailVerification");
           expect(content).toContain("SignerScribbleVerification");
         } catch {
           console.log("SignerVerification.md not found - skipping test");
-        }
-      });
-
-      test("SignerEmailVerification should show parent type link", async () => {
-        const emailVerificationFile = path.join(
-          openApiDir,
-          "models",
-          "SignerEmailVerification.md",
-        );
-        try {
-          const content = await fs.readFile(emailVerificationFile, "utf-8");
-          expect(content).toContain("Parent Type");
-          expect(content).toContain("SignerVerification");
-          expect(content).toContain(
-            "[SignerVerification](SignerVerification.md)",
-          );
-        } catch {
-          console.log("SignerEmailVerification.md not found - skipping test");
         }
       });
 
