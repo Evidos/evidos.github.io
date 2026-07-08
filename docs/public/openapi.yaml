@@ -1318,7 +1318,6 @@ components:
         propertyName: Type
       oneOf:
         - $ref: "#/components/schemas/SignerScribbleVerification"
-        - $ref: "#/components/schemas/SignerEmailVerification"
         - $ref: "#/components/schemas/SignerPhoneNumberIdentification"
         - $ref: "#/components/schemas/SignerDigidIdentification"
         - $ref: "#/components/schemas/SignerIDealVerification"
@@ -1352,18 +1351,6 @@ components:
           type: boolean
           description: Whether the name cannot be changed
           example: false
-    SignerEmailVerification:
-      type: object
-      description: Email address verification
-      properties:
-        Type:
-          type: string
-          enum: [Email]
-        Email:
-          type: string
-          format: email
-          description: Email address to verify
-          example: "john.doe@example.com"
     SignerPhoneNumberIdentification:
       type: object
       description: SMS phone number verification
