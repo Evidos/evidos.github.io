@@ -55,9 +55,7 @@ export const ClickThroughGate = ({ children }: { children: ReactNode }) => {
     return (
       <div>
         <div style={styles.acceptedBanner}>
-          <span>
-            You accepted the SDK License Agreement on {date}.
-          </span>
+          <span>You accepted the SDK License Agreement on {date}.</span>
         </div>
         {children}
       </div>
