@@ -22,7 +22,7 @@
     "@rspress/core": "2.0.21",
     "@rspress/plugin-rss": "2.0.21",
     "@rspress/plugin-sitemap": "2.0.21",
-    "@scalar/api-reference-react": "0.9.65",
+    "@scalar/api-reference-react": "0.9.66",
     "@tsconfig/bun": "1.0.11",
     "@types/bun": "1.4.0",
     "micromark": "4.0.2",
