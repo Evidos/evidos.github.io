@@ -24,7 +24,7 @@
     "@rspress/plugin-sitemap": "2.0.21",
     "@scalar/api-reference-react": "0.9.66",
     "@tsconfig/bun": "1.0.11",
-    "@types/bun": "1.4.0",
+    "@types/bun": "1.4.1",
     "micromark": "4.0.2",
     "openapi-types": "12.1.3",
     "prettier": "3.9.6",
