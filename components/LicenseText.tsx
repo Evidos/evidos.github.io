@@ -1,3 +1,6 @@
+// Bump when the license text below changes; sent with every acceptance record
+export const LICENSE_VERSION = "2026-08";
+
 export const LicenseText = () => (
   <>
     <h3>Entrust Signhost SDK License Agreement</h3>
