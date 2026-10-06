@@ -47,6 +47,9 @@ jobs:
         run: bun run build
         env:
           PUBLISH_URL: https://evidos.github.io
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
+          AIRTABLE_TABLE: ${{ secrets.AIRTABLE_TABLE }}
+          AIRTABLE_PAT: ${{ secrets.AIRTABLE_PAT }}
 
       - name: Upload artifact
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'

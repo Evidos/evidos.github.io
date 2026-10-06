@@ -14,6 +14,20 @@ ogImageUrl.pathname = "/og_image.png";
 export default defineConfig({
   llms: true,
   builderConfig: {
+    source: {
+      // Public by nature of a static bundle: Airtable PAT is write-only, no read scope
+      define: {
+        "process.env.AIRTABLE_BASE_ID": JSON.stringify(
+          process.env.AIRTABLE_BASE_ID || "",
+        ),
+        "process.env.AIRTABLE_TABLE": JSON.stringify(
+          process.env.AIRTABLE_TABLE || "",
+        ),
+        "process.env.AIRTABLE_PAT": JSON.stringify(
+          process.env.AIRTABLE_PAT || "",
+        ),
+      },
+    },
     plugins: [
       pluginOpenGraph({
         title: "Signhost Developer Hub",
