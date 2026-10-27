@@ -2,18 +2,19 @@
   "name": "rspress-beta",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "bun@1.4.4",
   "scripts": {
     "build": "bun run clean && rspress build",
     "clean": "rm -rf doc_build docs/openapi",
     "dev": "rspress dev",
     "preview": "rspress preview",
     "test": "bun test",
-    "format": "biome check --write && biome format --write && prettier --write .",
-    "typecheck": "tsc",
+    "format": "biome lint --write && bun fmt",
+    "typecheck": "bun check",
     "lint:ts": "biome ci",
-    "lint:md": "prettier --check '**/*.md'",
+    "lint:format": "bun fmt --check",
     "lint:openapi": "vacuum lint --ruleset vacuum-rules.yaml --ignore-file ./vacuum-ignore.yaml --details ./docs/public/openapi.yaml",
-    "lint": "bun run typecheck && bun run lint:ts && bun run lint:md && bun run lint:openapi"
+    "lint": "bun run typecheck && bun run lint:ts && bun run lint:format && bun run lint:openapi"
   },
   "devDependencies": {
     "@apidevtools/swagger-parser": "13.1.0",
@@ -27,11 +28,9 @@
     "@types/bun": "1.4.3",
     "micromark": "4.0.3",
     "openapi-types": "12.1.3",
-    "prettier": "3.9.10",
     "rsbuild-plugin-open-graph": "1.1.3",
     "rspress-language-tabs": "1.1.0",
-    "rspress-plugin-font-figtree": "1.0.1",
-    "typescript": "7.0.2"
+    "rspress-plugin-font-figtree": "1.0.1"
   },
   "trustedDependencies": [
     "@quobix/vacuum"

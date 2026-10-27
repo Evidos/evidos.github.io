@@ -3,8 +3,9 @@
   "compilerOptions": {
     "types": ["bun"],
     "isolatedModules": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "noUncheckedSideEffectImports": false
   },
-  "include": ["docs", "plugins", "theme", "rspress.config.ts"],
+  "include": ["components", "docs", "plugins", "theme", "rspress.config.ts"],
   "exclude": ["node_modules", "docs/guide/features/samples"]
 }
