@@ -461,8 +461,7 @@ function renderSchemaInfo(
     result += `**Schema:** [${refName}](../models/${refName}.md)\n\n`;
 
     const refSchema = fullSchema.components?.schemas?.[refName] as
-      | SchemaObject
-      | undefined;
+      SchemaObject | undefined;
     if (!refSchema) {
       addWarning(`Reference ${refName} not found in components.schemas`);
       return result;
@@ -661,8 +660,7 @@ function getPropertyType(schema: SchemaObject | ReferenceObject): string {
   // Handle discriminator types (anyOf, oneOf, allOf)
   if (schema.anyOf || schema.oneOf || schema.allOf) {
     const variants = (schema.anyOf || schema.oneOf || schema.allOf) as (
-      | SchemaObject
-      | ReferenceObject
+      SchemaObject | ReferenceObject
     )[];
     const variantTypes = variants.map((variant) => {
       if ("$ref" in variant) {
@@ -861,8 +859,7 @@ const capitalize = (name: string): string => {
  */
 function renderDiscriminator(schema: Record<string, unknown>): string {
   const discriminator = schema.discriminator as
-    | Record<string, unknown>
-    | undefined;
+    Record<string, unknown> | undefined;
 
   if (!discriminator) {
     return "";
@@ -998,8 +995,7 @@ function buildDiscriminatorMap(schema: OpenAPIDocument): Map<string, string[]> {
 
       // Also check oneOf, anyOf, allOf for references
       const variants = (oneOf || anyOf || allOf) as
-        | (SchemaObject | ReferenceObject)[]
-        | undefined;
+        (SchemaObject | ReferenceObject)[] | undefined;
       if (variants) {
         for (const variant of variants) {
           if (isReference(variant)) {

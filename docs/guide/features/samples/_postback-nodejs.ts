@@ -1,4 +1,5 @@
 import { createHash, timingSafeEqual } from "node:crypto";
+
 import type { Request, Response } from "express";
 
 // Configuration

@@ -1,9 +1,11 @@
 import { join } from "node:path";
+
 import { defineConfig } from "@rspress/core";
 import { pluginRss } from "@rspress/plugin-rss";
 import { pluginSitemap } from "@rspress/plugin-sitemap";
 import { pluginOpenGraph } from "rsbuild-plugin-open-graph";
 import { pluginFontFigtree } from "rspress-plugin-font-figtree";
+
 import { pluginOpenApi } from "./plugins/openApiPlugin";
 
 const PUBLISH_URL = process.env.PUBLISH_URL || "https://evidos.github.io";
