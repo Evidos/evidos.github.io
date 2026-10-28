@@ -1,11 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
-      }
-    }
+    "enabled": false
   },
   "vcs": {
     "enabled": true,
@@ -13,8 +9,7 @@
     "useIgnoreFile": true
   },
   "formatter": {
-    "enabled": true,
-    "indentStyle": "space"
+    "enabled": false
   },
   "css": {
     "parser": {

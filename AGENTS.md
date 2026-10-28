@@ -33,6 +33,7 @@ evidos.github.io/
 │   ├── instructions/        # LLM instruction files
 │   └── workflows/           # GitHub Actions workflows
 ├── rspress.config.ts        # Rspress configuration
+├── bunfig.toml              # Bun formatter configuration
 └── package.json             # Dependencies and scripts
 ```
 
@@ -41,8 +42,9 @@ evidos.github.io/
 ### Configuration Files
 
 - **`rspress.config.ts`**: Main site configuration, navigation, theme settings
-- **`tsconfig.json`**: TypeScript compiler configuration
-- **`biome.json`**: Biome linter and formatter configuration
+- **`tsconfig.json`**: TypeScript compiler configuration (used by `bun check`)
+- **`biome.json`**: Biome linter configuration (formatting and import sorting are handled by `bun fmt`)
+- **`bunfig.toml`**: Bun formatter configuration (`bun fmt` sorts imports)
 - **`vacuum-rules.yaml`**: OpenAPI linting rules
 - **`vacuum-ignore.yaml`**: OpenAPI linting ignore patterns
 
@@ -79,6 +81,8 @@ This repository uses instruction files to guide AI agents when modifying specifi
 
 ### Setup
 
+Requires Bun 1.4.4 or later (pinned in `package.json`), which provides `bun check` and `bun fmt`.
+
 ```bash
 bun install
 ```
@@ -106,10 +110,16 @@ Output directory: `doc_build/`
 bun run lint
 
 # Individual checks
-bun run typecheck      # TypeScript type checking
+bun run typecheck      # TypeScript type checking (bun check)
 bun run lint:ts        # Biome linting
-bun run lint:md        # Markdown formatting
+bun run lint:format    # Formatting check (bun fmt --check)
 bun run lint:openapi   # OpenAPI spec validation
+
+# Apply safe Biome lint fixes and format all files (bun fmt)
+bun run format
+
+# Run tests
+bun test
 ```
 
 ### Preview Production Build
@@ -122,7 +132,7 @@ bun run preview
 
 ### TypeScript/JavaScript
 
-- Use Biome for linting and formatting
+- Use Biome for linting and `bun fmt` for formatting (it also sorts imports)
 - TypeScript strict mode enabled
 - Prefer functional components for React
 - Use ES modules (`import`/`export`)
@@ -157,8 +167,9 @@ bun run preview
 On every push and PR:
 
 - TypeScript type checking
+- Tests
 - Biome linting
-- Markdown linting
+- Formatting check
 - OpenAPI spec validation
 - Build verification
 
@@ -201,6 +212,7 @@ Automatic deployment to GitHub Pages on push to `main` branch.
 
 - Check TypeScript errors: `bun run typecheck`
 - Check linting: `bun run lint`
+- Fix formatting: `bun run format`
 - Clear build cache: `rm -rf doc_build node_modules && bun install`
 
 ### Hot Reload Not Working
@@ -220,6 +232,7 @@ Automatic deployment to GitHub Pages on push to `main` branch.
 - [Rspress Documentation](https://rspress.dev/)
 - [MDX Documentation](https://mdxjs.com/)
 - [Biome Documentation](https://biomejs.dev/)
+- [Bun Formatter](https://bun.com/docs/format) and [Bun Type Checker](https://bun.com/docs/runtime/check)
 
 ## Maintaining This File
 
