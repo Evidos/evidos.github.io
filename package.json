@@ -19,7 +19,7 @@
   "devDependencies": {
     "@apidevtools/swagger-parser": "13.1.0",
     "@biomejs/biome": "2.6.4",
-    "@quobix/vacuum": "0.36.0",
+    "@quobix/vacuum": "0.36.1",
     "@rspress/core": "2.0.23",
     "@rspress/plugin-rss": "2.0.23",
     "@rspress/plugin-sitemap": "2.0.23",
