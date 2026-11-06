@@ -2,7 +2,6 @@ import { join } from "node:path";
 
 import { defineConfig } from "@rspress/core";
 import { pluginRss } from "@rspress/plugin-rss";
-import { pluginSitemap } from "@rspress/plugin-sitemap";
 import { pluginOpenGraph } from "rsbuild-plugin-open-graph";
 import { pluginFontFigtree } from "rspress-plugin-font-figtree";
 
@@ -36,10 +35,10 @@ export default defineConfig({
   route: {
     cleanUrls: true,
   },
+  sitemap: { siteUrl: PUBLISH_URL },
   plugins: [
     pluginOpenApi({ clean: true }),
     pluginFontFigtree(),
-    pluginSitemap({ siteUrl: PUBLISH_URL }),
     pluginRss({
       siteUrl: PUBLISH_URL,
       feed: [
