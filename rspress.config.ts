@@ -14,7 +14,6 @@ const ogImageUrl = new URL(PUBLISH_URL);
 ogImageUrl.pathname = "/og_image.png";
 
 export default defineConfig({
-  llms: true,
   builderConfig: {
     plugins: [
       pluginOpenGraph({
