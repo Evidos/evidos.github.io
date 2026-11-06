@@ -45,7 +45,7 @@ export default defineConfig({
       feed: [
         {
           id: "blog-rss",
-          test: "/blog/posts",
+          test: "/blog/post/",
           language: "en",
           output: {
             type: "atom",
