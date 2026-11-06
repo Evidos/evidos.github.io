@@ -6,7 +6,7 @@ Guidelines for AI coding agents working with the Signhost Developer Documentatio
 
 This repository contains the official developer documentation for the Entrust Signhost REST API. It's built using [Rspress](https://rspress.dev/), a static site generator based on React and Rspack.
 
-- **Live Site**: https://evidos.github.io/
+- **Live Site**: https://developer.signhost.com/
 - **Framework**: Rspress v2.0.0-beta.35
 - **Runtime**: Bun
 - **CI/CD**: GitHub Actions with automatic deployment to GitHub Pages

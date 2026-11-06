@@ -35,7 +35,7 @@ info:
 
     - Do not perform active polling for transactions status updates. Use the postback service instead.
 
-    For detailed integration guides and examples, visit the [Signhost Developer Documentation](https://evidos.github.io/).
+    For detailed integration guides and examples, visit the [Signhost Developer Documentation](https://developer.signhost.com/).
   contact:
     name: Signhost Support
     email: support@signhost.com
