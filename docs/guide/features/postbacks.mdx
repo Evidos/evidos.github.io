@@ -29,9 +29,9 @@ Your postback endpoint **must always** return a `2xx` HTTP status code (such as 
 
 Signhost will send a postback with the most up-to-date data known at the moment when:
 
-- There is a status change in the transaction (eg. the transaction went from waiting for signer to all signed). See [Transaction Statuses](../features/status.md#transaction-statuses).
-- There is a signer activity (eg. an email was sent). See [Signer Activities](../features/status.md#signer-activities).
-- There is a receiver activity (eg. an email was sent). Receiver activities share the same status codes as [Signer Activities](../features/status.md#signer-activities), but only `Failed` (email bounce) and `SignedDocumentSent` are used for receivers.
+- There is a status change in the transaction (eg. the transaction went from waiting for signer to all signed). See [Transaction Statuses](../features/status.md#transaction-status).
+- There is a signer activity (eg. an email was sent). See [Signer Activities](../features/status.md#signer-activity).
+- There is a receiver activity (eg. an email was sent). Receiver activities share the same status codes as [Signer Activities](../features/status.md#signer-activity), but only `Failed` (email bounce) and `SignedDocumentSent` are used for receivers.
 
 There are two ways of creating postbacks that will be used to deliver postback messages to:
 
@@ -108,7 +108,7 @@ A postback is sent out when either the Transaction Status changes or a Signer Ac
 
 A transaction has an overall status. This is the status of the entire transaction such as signed or rejected.
 
-A full list of all Transaction Statuses can be found at the [Status & Activities](../features/status.md#transaction-statuses) page.
+A full list of all Transaction Statuses can be found at the [Status & Activities](../features/status.md#transaction-status) page.
 
 A few scenarios around transaction status postbacks:
 
@@ -123,7 +123,7 @@ A few scenarios around transaction status postbacks:
 Transaction status postbacks can be identified via a combination of the Transaction ID, Status code and Checksum.
 
 - Transaction ID: The unique ID of the Transaction
-- Status Code: The current status of the Transaction. See [Status & Activities](../features/status.md#transaction-statuses)
+- Status Code: The current status of the Transaction. See [Status & Activities](../features/status.md#transaction-status)
 - Checksum: The checksum of the postback payload
 
 :::tip
@@ -134,7 +134,7 @@ Multiple postbacks with the same combination of these variables might arrive bec
 
 In addition to the overall transaction status, for each signer that is involved in a transaction, there is a list of activities that the user has performed. This details what an individual person has done in their signing session.
 
-A full list of all the Signer Activities can be found at the [Status & Activities](../features/status.md#signer-activities) page.
+A full list of all the Signer Activities can be found at the [Status & Activities](../features/status.md#signer-activity) page.
 
 A Signer Activity details what interactions a specific person had with the transaction and the documents within. These activities give real-time insight in the full audit trail of what a signer has done to come to a signed document and can be used in your business logic and dashboarding to provide extra information to your users.
 
@@ -152,7 +152,7 @@ A few scenarios around signer activity postbacks:
 Signer activities can be identified via a combination of Activity ID, Status code and CreatedDateTime.
 
 - Activity ID: Unique ID of the Activity
-- Status Code: The current status of the Activity. See [Status & Activities](../features/status.md#signer-activities)
+- Status Code: The current status of the Activity. See [Status & Activities](../features/status.md#signer-activity)
 - CreatedDateTime: The date when the activity occurred.
 
 Your business logic can use signer activities to trigger subsequent actions. For example, if you are using the [Direct Flow](../features/signing-flows.md#signing-flows) for delivering transactions, and you want to invite Signer 2 after Signer 1 signed, you can rely on the signer activity `203` (signed) for Signer 1 to trigger sending the transaction to Signer 2. Make sure that subsequent signer activities or duplicate postbacks _after_ the first `203` (signed) do not overwrite or retrigger any invitations.
