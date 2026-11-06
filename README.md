@@ -4,7 +4,7 @@
 
 The official developer documentation for Entrust Signhost REST API.
 
-🌐 **Live Site:** https://evidos.github.io/
+🌐 **Live Site:** https://developer.signhost.com/
 
 ## Setup
 
@@ -95,4 +95,4 @@ To enable deployment, ensure GitHub Pages is configured in your repository setti
 
 1. Go to **Settings** → **Pages**
 2. Set **Source** to "GitHub Actions"
-3. The site will be deployed to `https://evidos.github.io/`
+3. The site will be deployed to `https://developer.signhost.com/`

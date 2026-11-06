@@ -7,7 +7,7 @@ import { pluginFontFigtree } from "rspress-plugin-font-figtree";
 
 import { pluginOpenApi } from "./plugins/openApiPlugin";
 
-const PUBLISH_URL = process.env.PUBLISH_URL || "https://evidos.github.io";
+const PUBLISH_URL = process.env.PUBLISH_URL || "https://developer.signhost.com";
 
 const ogImageUrl = new URL(PUBLISH_URL);
 ogImageUrl.pathname = "/og_image.png";

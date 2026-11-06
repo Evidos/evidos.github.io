@@ -48,7 +48,7 @@ jobs:
       - name: Build site
         run: bun run build
         env:
-          PUBLISH_URL: https://evidos.github.io
+          PUBLISH_URL: https://developer.signhost.com
 
       - name: Upload artifact
         if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
