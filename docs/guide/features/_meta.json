@@ -1,5 +1,6 @@
 [
   "authentication",
+  "expiry",
   "formsets",
   "postbacks",
   "return-url",
