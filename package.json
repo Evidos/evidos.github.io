@@ -22,7 +22,7 @@
     "@quobix/vacuum": "0.41.0",
     "@rspress/core": "2.1.3",
     "@rspress/plugin-rss": "2.1.3",
-    "@scalar/api-reference-react": "0.9.92",
+    "@scalar/api-reference-react": "0.9.93",
     "@tsconfig/bun": "1.0.12",
     "@types/bun": "1.4.4",
     "micromark": "4.0.3",
