@@ -2,7 +2,7 @@
   "name": "rspress-beta",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "bun@1.4.4",
+  "packageManager": "bun@1.4.5",
   "scripts": {
     "build": "bun run clean && rspress build",
     "clean": "rm -rf doc_build docs/openapi",
