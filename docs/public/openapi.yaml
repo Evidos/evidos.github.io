@@ -681,8 +681,13 @@ components:
         DaysToExpire:
           type: integer
           description: |
-            Number of days until the transaction expires. If 0, uses organization default.
-            Maximum value depends on organization settings.
+            Number of days after creation until the transaction expires. If 0, uses organization default.
+            Maximum value depends on organization settings (at most 90).
+
+            When the transaction expires, all signers lose access, the sender receives an
+            expiry email and a postback with status `50` (Expired) is sent. A signer's
+            `Expires` can expire the transaction earlier, but never later, and only while that
+            signer has not signed or rejected yet.
           example: 30
           default: 30
           minimum: 0
@@ -885,7 +890,16 @@ components:
         Expires:
           type: string
           format: date-time
-          description: When the signer's access expires
+          description: |
+            Date and time after which this signer can no longer sign. If the signer has not
+            signed or rejected by then, the whole transaction expires: all other signers
+            lose access too, the sender receives an expiry email and a postback with
+            status `50` (Expired) is sent. Once the signer has signed or rejected, this
+            date no longer has any effect.
+
+            Must be in the future, at most 90 days ahead and not later than the
+            transaction's expiry (`DaysToExpire` days after creation). A later value is
+            rejected with a `400`. Omit it to let the transaction expiry apply.
           example: "2024-02-15T10:30:00Z"
         Email:
           type: string
@@ -998,6 +1012,7 @@ components:
             - Set to a positive number (e.g., `3`, `7`) to send reminders every N days
 
             **Note:** Reminders are only sent if `SendSignRequest` is `true` and the signer hasn't completed signing yet.
+            Reminders stop when the transaction expires, and the first reminder must fall before the signer's `Expires`.
           format: int32
           minimum: -1
           example: 3
@@ -1067,7 +1082,16 @@ components:
         Expires:
           type: string
           format: date-time
-          description: When the signer's access expires
+          description: |
+            Date and time after which this signer can no longer sign. If the signer has not
+            signed or rejected by then, the whole transaction expires: all other signers
+            lose access too, the sender receives an expiry email and a postback with
+            status `50` (Expired) is sent. Once the signer has signed or rejected, this
+            date no longer has any effect.
+
+            Must be in the future, at most 90 days ahead and not later than the
+            transaction's expiry (`DaysToExpire` days after creation). A later value is
+            rejected with a `400`. Omit it to let the transaction expiry apply.
           example: "2024-02-15T10:30:00Z"
         Email:
           type: string
